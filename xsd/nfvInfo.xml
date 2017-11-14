@@ -1,0 +1,21 @@
+<nfv:networkProvider xmlns:nfv="http://www.example.org/nfvInfo">
+  <!--Zero or more repetitions:-->
+  <nfv:nffg name_nffg="nodoprova" deploy_time="2008-09-29T03:49:45">
+    <!--Zero or more repetitions:-->
+    <nfv:node node_name="n1" host_name="h1" functionaltypeId="f2">
+      <!--Zero or more repetitions:-->
+      <nfv:link link_name="link" sourceNode="n1" destinationNode="n1" min_throughput="1.5E2" max_latency="1.5E2"/>
+    </nfv:node>
+  </nfv:nffg>
+  <!--1 or more repetitions:-->
+  <nfv:in>
+    <!--Zero or more repetitions:-->
+    <nfv:host hostName="string" number_VNFs="3" memory="1.5E2" disk_storage="1.5E2"/>
+    <!--Optional:-->
+    <nfv:performance avg_throughput="1.5E2" latency="1.5E2" sourceHost="string" destinationHost="string"/>
+  </nfv:in>
+  <nfv:catalog>
+    <!--1 or more repetitions:-->
+    <nfv:functionaltype functionaltypeId="f2" functionalTypeName="MAIL_CLIENT" required_memory="1.5E2" required_storage="1.5E2"/>
+  </nfv:catalog>
+</nfv:networkProvider>

@@ -1,0 +1,50 @@
+<!---DTD definition for Network services -->
+
+        <!-- network provider -->
+        <!ELEMENT networkprovider (nffg*, in+, catalog)>
+
+        <!-- nffg -->
+        <!ELEMENT nffg (node*)>
+        <!ATTLIST nffg name_nffg ID #REQUIRED
+                deploy_time CDATA #REQUIRED>
+
+        <!-- in -->
+        <!ELEMENT in (host*, performance*)>
+
+        <!-- catalog -->
+        <!ELEMENT catalog (functionaltype*)>
+
+
+        <!-- node -->
+        <!ELEMENT node (link*)>
+        <!ATTLIST node node_name ID #REQUIRED
+                host_name IDREF #REQUIRED>
+
+        <!-- link -->
+        <!ELEMENT link EMPTY>
+        <!ATTLIST link link_name ID #REQUIRED
+                sourceNode IDREF #REQUIRED
+                destinationNode IDREF #REQUIRED
+                min_throughput CDATA #IMPLIED
+                max_latency CDATA #IMPLIED>
+
+        <!-- functional type -->
+        <!ELEMENT functionaltype EMPTY>
+        <!ATTLIST functionaltype functionaltypeId ID #REQUIRED
+                functionalTypeName (CACHE|DPI|FW|MAIL_CLIENT|MAIL_SERVER|NAT|SPAM|VPN|WEB_CLIENT|WEB_SERVER) #REQUIRED
+                required_memory CDATA #REQUIRED
+                required_storage CDATA #REQUIRED>
+
+        <!-- host -->
+        <!ELEMENT host EMPTY>
+        <!ATTLIST host hostName ID #REQUIRED
+                number_VNFs CDATA #REQUIRED
+                memory CDATA #REQUIRED
+                disk_storage CDATA #REQUIRED>
+
+        <!-- performance -->
+        <!ELEMENT performance EMPTY>
+        <!ATTLIST performance avg_throughput CDATA #REQUIRED
+                latency CDATA #REQUIRED
+                sourceHost IDREF #REQUIRED
+                destinationHost IDREF #REQUIRED>
