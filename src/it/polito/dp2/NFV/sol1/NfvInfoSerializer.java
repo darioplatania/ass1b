@@ -27,7 +27,7 @@ public class NfvInfoSerializer {
 	private NfvReader monitor;
 	private DateFormat dateFormat;
 	public NetworkProvider np;
-	
+		
 	
 	/**
 	 * Default constructror
@@ -111,6 +111,9 @@ public class NfvInfoSerializer {
 	private void printCatalog() {
 		Set<VNFTypeReader> set = monitor.getVNFCatalog();
 		
+		// Create list of Ftype
+		List<FType> ftype_list = np.getCatalog().getFunctionaltype();
+		
 		/* Print the header of the table */
 		printHeader('#',"#Information about the CATALOG of VNFs");
 		printHeader("#Number of VNF types: "+set.size());
@@ -120,6 +123,15 @@ public class NfvInfoSerializer {
 		for (VNFTypeReader vnfType_r: set) {
 			System.out.println("Type name " + vnfType_r.getName() +"\tFunc type: "+vnfType_r.getFunctionalType().value()+
 								"\tRequired Mem:"+vnfType_r.getRequiredMemory()+"\tRequired Sto:"+vnfType_r.getRequiredStorage());
+			
+			// Create ftype,set and add
+			FType ftype = new FType();	
+			ftype.setFunctionalTypeName(NodeFunctionalType.valueOf(vnfType_r.getName()));
+			ftype.setRequiredMemory(vnfType_r.getRequiredMemory());
+			ftype.setRequiredStorage(vnfType_r.getRequiredStorage());
+			ftype.setFunctionaltypeId(vnfType_r.getFunctionalType().value());
+			
+			ftype_list.add(ftype);
 		}
 		printBlankLine();
 	}
