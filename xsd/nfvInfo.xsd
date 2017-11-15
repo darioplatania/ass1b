@@ -20,7 +20,7 @@
                 </xs:element>
 
                 <!-- in -->
-                <xs:element name="in" type="ni:inType" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="in" type="ni:inType" minOccurs="1"/>
 
                 <!-- catalog -->
                 <xs:element name="catalog" type="ni:catalogType"/>
@@ -127,7 +127,7 @@
     <xs:complexType name="inType">
         <xs:sequence>
             <xs:element name="host" type="ni:hostType" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="performance" type="ni:performanceType" minOccurs ="0" maxOccurs="1"/>
+            <xs:element name="performance" type="ni:performanceType" minOccurs ="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 

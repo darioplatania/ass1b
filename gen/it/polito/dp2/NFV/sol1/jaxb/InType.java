@@ -2,7 +2,7 @@
 // Questo file xe8 stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.0-b170531.0717 
 // Vedere <a href="https://jaxb.java.net/">https://jaxb.java.net/</a> 
 // Qualsiasi modifica a questo file andrxe0 persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.14 alle 11:39:34 PM CET 
+// Generato il: 2017.11.15 alle 12:14:57 PM CET 
 //
 
 
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="host" type="{http://www.example.org/nfvInfo}hostType" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="performance" type="{http://www.example.org/nfvInfo}performanceType" minOccurs="0"/&gt;
+ *         &lt;element name="performance" type="{http://www.example.org/nfvInfo}performanceType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
 public class InType {
 
     protected List<HostType> host;
-    protected PerformanceType performance;
+    protected List<PerformanceType> performance;
 
     /**
      * Gets the value of the host property.
@@ -75,27 +75,32 @@ public class InType {
     }
 
     /**
-     * Recupera il valore della proprietxE0 performance.
+     * Gets the value of the performance property.
      * 
-     * @return
-     *     possible object is
-     *     {@link PerformanceType }
-     *     
-     */
-    public PerformanceType getPerformance() {
-        return performance;
-    }
-
-    /**
-     * Imposta il valore della proprietxE0 performance.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the performance property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link PerformanceType }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getPerformance().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link PerformanceType }
+     * 
+     * 
      */
-    public void setPerformance(PerformanceType value) {
-        this.performance = value;
+    public List<PerformanceType> getPerformance() {
+        if (performance == null) {
+            performance = new ArrayList<PerformanceType>();
+        }
+        return this.performance;
     }
 
 }

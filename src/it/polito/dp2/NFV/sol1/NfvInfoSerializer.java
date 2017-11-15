@@ -26,8 +26,7 @@ public class NfvInfoSerializer {
 	
 	private NfvReader monitor;
 	private DateFormat dateFormat;
-	public NetworkProvider np;
-		
+	private NetworkProvider np;	
 	
 	/**
 	 * Default constructror
@@ -76,20 +75,35 @@ public class NfvInfoSerializer {
 		// Get the list of Hosts
 		Set<HostReader> set = monitor.getHosts();
 		
+		
+		// Create list of Performance
+		List<PerformanceType> pf_list = np.getIn().getPerformance();
+				
+				
 		/* Print the header of the table */
 		printHeader('#',"#Information about the Performance of Host to Host connections");
 		printHeader("#Throughput Matrix:");
+		
+		HostType ht = new HostType();
+		PerformanceType pt = new PerformanceType();
+		
 		for (HostReader sri: set) {
-			System.out.print("\t"+sri.getName());
+			System.out.print("\t"+sri.getName());			
+			ht.setHostName(sri.getName());
 		}
 		System.out.println(" ");
-		for (HostReader sri: set) {
+		for (HostReader sri: set) {			
 			System.out.print(sri.getName());
 			for (HostReader srj: set) {
 				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
+				pt.setAvgThroughput(cpr.getThroughput());
+				pt.setLatency(cpr.getLatency());
+				pt.setSourceHost(sri.getName());
+				pt.setDestinationHost(srj.getName());
 				System.out.print("\t"+cpr.getThroughput());
 			}
 			System.out.println(" ");
+			pf_list.add(pt);
 		}
 		printBlankLine();
 		printHeader("#Latency Matrix:");
@@ -140,6 +154,12 @@ public class NfvInfoSerializer {
 		// Get the list of Hosts
 		Set<HostReader> set = monitor.getHosts();
 		
+		// Create list InType
+		List<HostType> in_list = np.getIn().getHost();
+		
+		// Create object intype
+		InType intype = new InType();
+		
 		/* Print the header of the table */
 		printHeader('#',"#Information about HOSTS");
 		printHeader("#Number of Hosts: "+set.size());
@@ -147,24 +167,47 @@ public class NfvInfoSerializer {
 		
 		// For each Host print related data
 		for (HostReader host_r: set) {
+			// Create ht 
+			HostType ht = new HostType();
+			
 			printHeader('%',"###Data for Host " + host_r.getName());
+			// ht getname
+			ht.setHostName(host_r.getName());
 			
 			// Print maximum number of nodes
 			printHeader("#Maximum number of nodes: "+host_r.getMaxVNFs());
+			
+			// ht getMaxVNFs
+			ht.setNumberVNFs(host_r.getMaxVNFs());
 
 			// Print available memory
 			printHeader("#Available memory: "+host_r.getAvailableMemory());
 			
+			//ht getAvailableMem
+			ht.setMemory(host_r.getAvailableMemory());
+			
 			// Print available storage
 			printHeader("#Available storage: "+host_r.getAvailableStorage());	
-
+			
+			//ht available storage
+			ht.setDiskStorage(host_r.getAvailableStorage());
+			
+			// add host into intype
+			intype.getHost().add(ht);
+			
 			// Print allocated nodes
 			Set<NodeReader> nodeSet = host_r.getNodes();
+			ht.setNumberVNFs(nodeSet.size());
+			
 			printHeader("#Number of Allocated Nodes: "+nodeSet.size());
 			printHeader("#List of Allocated Nodes:");
 			for (NodeReader nr: nodeSet)
+				//NodeType node = new NodeType();
+				//node.setNodeName(nr.getName());
+				//node.setFunctionaltypeId(nr.getFuncType().getName());
 				System.out.println("Node " + nr.getName() +"\tType: "+nr.getFuncType().getName());
 			System.out.println("###End of Allocated nodes");
+			
 		}
 		printBlankLine();
 	}
