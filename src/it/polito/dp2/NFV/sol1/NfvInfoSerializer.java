@@ -3,10 +3,7 @@ package it.polito.dp2.NFV.sol1;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
@@ -42,6 +39,7 @@ public class NfvInfoSerializer {
 		monitor = factory.newNfvReader();
 		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		this.np=new NetworkProvider();
+		np.setIn(new InType());
 	}
 	
 	public NfvInfoSerializer(NfvReader monitor) {
@@ -69,10 +67,10 @@ public class NfvInfoSerializer {
 
 
 	public void printAll(String f) throws DatatypeConfigurationException {
-		printHosts();
-		printCatalog();
 		printNffgs();
+		printHosts();
 		printPerformance();
+		printCatalog();	
 		
 File filename = new File (f);
 		
@@ -128,9 +126,9 @@ File filename = new File (f);
 		
 		PerformanceType pt=new PerformanceType();
 		InType inn=new InType();				
-		HostType ht = new HostType();
 	
 			for (HostReader sri: set) {
+			HostType ht = new HostType();
 			System.out.print("\t"+sri.getName());			
 			ht.setHostName(sri.getName());
 		}
@@ -149,39 +147,20 @@ File filename = new File (f);
 				}
 			
 			}
-			np.getIn().add(inn);
+			//np.getIn().add(inn);
 			System.out.println(" ");
 			
 		}
-		/*
-		printHeader("#Latency Matrix:");
-		for (HostReader sri: set) {
-			System.out.print("\t"+sri.getName());
-		}
-		System.out.println(" ");
-		for (HostReader sri: set) {
-			System.out.print(sri.getName());
-			for (HostReader srj: set) {
-				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
-				System.out.print("\t"+cpr.getLatency());
-			}
-			System.out.println(" ");
-		}*/
 		System.out.println("** FINISH PRINTPERFORMANCE **");
 	}
 
 	private void printCatalog() {
 		System.out.println("** START PRINTCATALOG **");
 		Set<VNFTypeReader> set = monitor.getVNFCatalog();
-		
-		// Create list of Ftype
-		//List<FType> ftype_list = np.getCatalog().getFunctionaltype();		
-		
 		CatalogType c = new CatalogType();
+		
 		// For each VNF type print name and class
 		for (VNFTypeReader vnfType_r: set) {
-			//System.out.println("Type name " + vnfType_r.getName() +"\tFunc type: "+vnfType_r.getFunctionalType().value()+
-								//"\tRequired Mem:"+vnfType_r.getRequiredMemory()+"\tRequired Sto:"+vnfType_r.getRequiredStorage());
 			
 			// Create ftype,set and add
 			FType ftype = new FType();	
@@ -190,7 +169,6 @@ File filename = new File (f);
 			ftype.setRequiredMemory(vnfType_r.getRequiredMemory());
 			ftype.setRequiredStorage(vnfType_r.getRequiredStorage());
 			c.getFunctionaltype().add(ftype);
-			System.out.println("aaaa");
 		}
 		np.setCatalog(c);
 		System.out.println("** FINISH PRINTCATALOG **");
@@ -200,17 +178,17 @@ File filename = new File (f);
 		System.out.println("** START PRINTHOSTS **");
 		// Get the list of Hosts
 		Set<HostReader> set = monitor.getHosts();
-		
-		InType intype = new InType();
-		HostType ht = new HostType();
+				
 		for (HostReader host_r: set) {
+			System.out.println("host:" + host_r.getName()) ;
+			HostType ht = new HostType();
 			ht.setHostName(host_r.getName());
 			ht.setNumberVNFs(host_r.getMaxVNFs());
 			ht.setMemory(host_r.getAvailableMemory());
 			ht.setDiskStorage(host_r.getAvailableStorage());
-			intype.getHost().add(ht);
+			System.out.println("Nome:" + ht.getHostName()) ;
+			np.getIn().getHost().add(ht);
 		}
-		np.getIn().add(intype);
 		System.out.println("** FINISH PRINTHOSTS **");
 	}
 
@@ -226,16 +204,11 @@ File filename = new File (f);
 		
 		// For each NFFG print related data
 		for (NffgReader nffg_r: set) {
-			//printHeader('%',"###Data for NF-FG " + nffg_r.getName());
 			
 			// Create nffgtype and set name
 			NffgType nffg = new NffgType();
 			nffg.setNameNffg(nffg_r.getName());
-			
-			// Print deploy time
-			//Calendar deployTime = nffg_r.getDeployTime();
-			//printHeader("#Deploy time: "+dateFormat.format(deployTime.getTime()));
-			
+	
 			// Set deploytime for nffg
 			GregorianCalendar gc = new GregorianCalendar();
 			gc.setTime(nffg_r.getDeployTime().getTime());
@@ -248,14 +221,12 @@ File filename = new File (f);
 			List<NodeType> nodelist = nffg.getNode();
 			
 			for (NodeReader nr: nodeSet) {
-				//printHeader('+',"+Node " + nr.getName() +"\tType: "+nr.getFuncType().getName()+"\t Allocated on: "+nr.getHost().getName()+
-						//"\tNumber of links: "+nr.getLinks().size());
-				
+	
 				// Create node,set node and add into nodelist
 				NodeType node = new NodeType();
-				node.setFunctionaltypeId(nr.getFuncType().getName());
 				node.setNodeName(nr.getName());
 				node.setHostName(nr.getHost().getName());
+				node.setFunctionaltypeId(nr.getFuncType().getName());
 				nodelist.add(node);
 				
 				Set<LinkReader> linkSet = nr.getLinks();
@@ -263,9 +234,7 @@ File filename = new File (f);
 				List<LinkType> linklist = node.getLink();
 								
 				for (LinkReader lr: linkSet) {
-					System.out.println(lr.getName()+"\t"+lr.getSourceNode().getName()+"\t"+lr.getDestinationNode().getName());
-				
-				
+						
 				// Create link,set link and add into listlink
 				LinkType link = new LinkType();
 				link.setLinkName(lr.getName());
@@ -273,43 +242,10 @@ File filename = new File (f);
 				link.setDestinationNode(lr.getDestinationNode().getName());
 				linklist.add(link);
 				}
-			}
-			
-			System.out.println("###End of Nodes");
-			
+			}			
 			//add into nffglist
 			nffglist.add(nffg);
 		}	
-		System.out.println("** FINISH PRINTCATALOG **");
+		System.out.println("** FINISH PRINTNFFG **");
 	}
-
-/*
-	private void printLine(char c) {
-		System.out.println(makeLine(c));
-	}
-
-	private void printHeader(String header) {
-		System.out.println(header);
-	}
-
-	private void printHeader(String header, char c) {		
-		System.out.println(header);
-		printLine(c);	
-	}
-	
-	private void printHeader(char c, String header) {		
-		printLine(c);	
-		System.out.println(header);
-	}
-	
-	private StringBuffer makeLine(char c) {
-		StringBuffer line = new StringBuffer(132);
-		
-		for (int i = 0; i < 132; ++i) {
-			line.append(c);
-		}
-		return line;
-	}
-*/
-
 }

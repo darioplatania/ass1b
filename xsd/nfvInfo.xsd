@@ -20,7 +20,7 @@
                 </xs:element>
 
                 <!-- in -->
-                <xs:element name="in" type="ni:inType" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="in" type="ni:inType"/>
 
                 <!-- catalog -->
                 <xs:element name="catalog" type="ni:catalogType" minOccurs="1" />
@@ -173,7 +173,7 @@
 
     <xs:simpleType name="name">
         <xs:restriction base="xs:string">
-            <!-- <xs:pattern value="([A-Z]|[a-z])(\w)+"/> -->
+            <xs:pattern value="([A-Z]|[a-z])(\w)+"/>
         </xs:restriction>
     </xs:simpleType>
 
