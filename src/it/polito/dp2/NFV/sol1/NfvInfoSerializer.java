@@ -1,14 +1,18 @@
 package it.polito.dp2.NFV.sol1;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.XMLConstants;
+import javax.xml.bind.*;
+import javax.xml.datatype.*;
+import javax.xml.validation.*;
+
+import org.xml.sax.SAXException;
 
 import it.polito.dp2.NFV.ConnectionPerformanceReader;
 import it.polito.dp2.NFV.HostReader;
@@ -20,10 +24,13 @@ import it.polito.dp2.NFV.NfvReaderFactory;
 import it.polito.dp2.NFV.NodeReader;
 import it.polito.dp2.NFV.VNFTypeReader;
 import it.polito.dp2.NFV.sol1.jaxb.*;
+
+
 import java.util.*;
 
 public class NfvInfoSerializer {
 	
+	private static final String W3C_XML_SCHEMA_NS_URI = null;
 	private NfvReader monitor;
 	private DateFormat dateFormat;
 	private NetworkProvider np;	
@@ -53,7 +60,7 @@ public class NfvInfoSerializer {
 		NfvInfoSerializer wf;
 		try {
 			wf = new NfvInfoSerializer();
-			wf.printAll();
+			wf.printAll(args[0]);
 		} catch (NfvReaderException e) {
 			System.err.println("Could not instantiate data generator.");
 			e.printStackTrace();
@@ -62,13 +69,32 @@ public class NfvInfoSerializer {
 	}
 
 
-	public void printAll() throws DatatypeConfigurationException {
+	public void printAll(String f) throws DatatypeConfigurationException {
 		printLine(' ');
 		printHosts();
 		printCatalog();
 		printNffgs();
 		printPerformance();
+		
+		try {
+		File file = new File(f);
+		JAXBContext jaxbContext = JAXBContext.newInstance("it.polito.dp2.NFFG.sol1.jaxb");
+		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+		
+		SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
+        Schema schema = sf.newSchema(new File("xsd/nfvInfo.xsd")); 
+		
+        
+		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		jaxbMarshaller.setSchema(schema);
+		
+		jaxbMarshaller.marshal(np, file);
+		jaxbMarshaller.marshal(np, System.out);		
+	}catch (JAXBException | SAXException e) {
+		// TODO Auto-generated catch block
+		System.out.println(e.getMessage());
 	}
+}
 
 
 	private void printPerformance() {
@@ -155,7 +181,7 @@ public class NfvInfoSerializer {
 		Set<HostReader> set = monitor.getHosts();
 		
 		// Create list InType
-		List<HostType> in_list = np.getIn().getHost();
+		//List<HostType> in_list = np.getIn().getHost();
 		
 		// Create object intype
 		InType intype = new InType();
