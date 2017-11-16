@@ -2,7 +2,7 @@
 // Questo file xe8 stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.0-b170531.0717 
 // Vedere <a href="https://jaxb.java.net/">https://jaxb.java.net/</a> 
 // Qualsiasi modifica a questo file andrxe0 persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.15 alle 01:01:52 PM CET 
+// Generato il: 2017.11.16 alle 10:45:49 AM CET 
 //
 
 
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="host" type="{http://www.example.org/nfvInfo}hostType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="host" type="{http://www.example.org/nfvInfo}hostType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="performance" type="{http://www.example.org/nfvInfo}performanceType" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class InType {
 
+    @XmlElement(required = true)
     protected List<HostType> host;
     protected List<PerformanceType> performance;
 

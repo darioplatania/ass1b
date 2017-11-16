@@ -2,7 +2,7 @@
 // Questo file xe8 stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.0-b170531.0717 
 // Vedere <a href="https://jaxb.java.net/">https://jaxb.java.net/</a> 
 // Qualsiasi modifica a questo file andrxe0 persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.15 alle 01:01:52 PM CET 
+// Generato il: 2017.11.16 alle 10:45:49 AM CET 
 //
 
 
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="nffg" type="{http://www.example.org/nfvInfo}nffgType" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="in" type="{http://www.example.org/nfvInfo}inType"/&gt;
+ *         &lt;element name="in" type="{http://www.example.org/nfvInfo}inType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="catalog" type="{http://www.example.org/nfvInfo}catalogType"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
@@ -49,7 +49,7 @@ public class NetworkProvider {
 
     protected List<NffgType> nffg;
     @XmlElement(required = true)
-    protected InType in;
+    protected List<InType> in;
     @XmlElement(required = true)
     protected CatalogType catalog;
 
@@ -83,27 +83,32 @@ public class NetworkProvider {
     }
 
     /**
-     * Recupera il valore della proprietxE0 in.
+     * Gets the value of the in property.
      * 
-     * @return
-     *     possible object is
-     *     {@link InType }
-     *     
-     */
-    public InType getIn() {
-        return in;
-    }
-
-    /**
-     * Imposta il valore della proprietxE0 in.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the in property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link InType }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getIn().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link InType }
+     * 
+     * 
      */
-    public void setIn(InType value) {
-        this.in = value;
+    public List<InType> getIn() {
+        if (in == null) {
+            in = new ArrayList<InType>();
+        }
+        return this.in;
     }
 
     /**

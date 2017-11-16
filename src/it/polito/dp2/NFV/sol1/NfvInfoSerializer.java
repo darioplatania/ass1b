@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
 
@@ -25,15 +26,12 @@ import it.polito.dp2.NFV.NodeReader;
 import it.polito.dp2.NFV.VNFTypeReader;
 import it.polito.dp2.NFV.sol1.jaxb.*;
 
-
-import java.util.*;
-
 public class NfvInfoSerializer {
 	
 	private static final String W3C_XML_SCHEMA_NS_URI = null;
 	private NfvReader monitor;
 	private DateFormat dateFormat;
-	private NetworkProvider np;	
+	public NetworkProvider np;	
 	
 	/**
 	 * Default constructror
@@ -43,13 +41,14 @@ public class NfvInfoSerializer {
 		NfvReaderFactory factory = NfvReaderFactory.newInstance();
 		monitor = factory.newNfvReader();
 		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		this.np=new NetworkProvider();
 	}
 	
 	public NfvInfoSerializer(NfvReader monitor) {
 		super();
 		this.monitor = monitor;
 		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-		this.np = new NetworkProvider();
+		
 	}
 
 	/**
@@ -70,50 +69,68 @@ public class NfvInfoSerializer {
 
 
 	public void printAll(String f) throws DatatypeConfigurationException {
-		printLine(' ');
 		printHosts();
 		printCatalog();
 		printNffgs();
 		printPerformance();
 		
+File filename = new File (f);
+		
+		JAXBContext jc = null;
 		try {
-		File file = new File(f);
-		JAXBContext jaxbContext = JAXBContext.newInstance("it.polito.dp2.NFFG.sol1.jaxb");
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		
-		SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); 
-        Schema schema = sf.newSchema(new File("xsd/nfvInfo.xsd")); 
-		
+			jc = JAXBContext.newInstance( "it.polito.dp2.NFV.sol1.jaxb" );
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		jaxbMarshaller.setSchema(schema);
+        // create an Marshaller
+        Marshaller m = null;
+		try {
+			m = jc.createMarshaller();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		jaxbMarshaller.marshal(np, file);
-		jaxbMarshaller.marshal(np, System.out);		
-	}catch (JAXBException | SAXException e) {
-		// TODO Auto-generated catch block
-		System.out.println(e.getMessage());
-	}
+		SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		
+		try {
+			Schema schema  = sf.newSchema(new File("xsd/nfvInfo.xsd"));
+			m.setSchema(schema);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		
+        try {
+			m.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE );
+		} catch (PropertyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //JAXBElement<NetworkProvider> net = (new ObjectFactory()).createNetworkProvider(np);
+        try {
+			m.marshal(np, filename);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
 
 
 	private void printPerformance() {
+		
+		System.out.println("**START PRINT PERFORMANCE **");
 		// Get the list of Hosts
 		Set<HostReader> set = monitor.getHosts();
 		
-		
-		// Create list of Performance
-		List<PerformanceType> pf_list = np.getIn().getPerformance();
-				
-				
-		/* Print the header of the table */
-		printHeader('#',"#Information about the Performance of Host to Host connections");
-		printHeader("#Throughput Matrix:");
-		
+		PerformanceType pt=new PerformanceType();
+		InType inn=new InType();				
 		HostType ht = new HostType();
-		PerformanceType pt = new PerformanceType();
-		
-		for (HostReader sri: set) {
+	
+			for (HostReader sri: set) {
 			System.out.print("\t"+sri.getName());			
 			ht.setHostName(sri.getName());
 		}
@@ -121,17 +138,22 @@ public class NfvInfoSerializer {
 		for (HostReader sri: set) {			
 			System.out.print(sri.getName());
 			for (HostReader srj: set) {
+				if (sri.getName()!=srj.getName()) {
 				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
 				pt.setAvgThroughput(cpr.getThroughput());
 				pt.setLatency(cpr.getLatency());
 				pt.setSourceHost(sri.getName());
 				pt.setDestinationHost(srj.getName());
+				inn.getPerformance().add(pt);
 				System.out.print("\t"+cpr.getThroughput());
+				}
+			
 			}
+			np.getIn().add(inn);
 			System.out.println(" ");
-			pf_list.add(pt);
+			
 		}
-		printBlankLine();
+		/*
 		printHeader("#Latency Matrix:");
 		for (HostReader sri: set) {
 			System.out.print("\t"+sri.getName());
@@ -144,126 +166,75 @@ public class NfvInfoSerializer {
 				System.out.print("\t"+cpr.getLatency());
 			}
 			System.out.println(" ");
-		}
-
+		}*/
+		System.out.println("** FINISH PRINTPERFORMANCE **");
 	}
 
 	private void printCatalog() {
+		System.out.println("** START PRINTCATALOG **");
 		Set<VNFTypeReader> set = monitor.getVNFCatalog();
 		
 		// Create list of Ftype
-		List<FType> ftype_list = np.getCatalog().getFunctionaltype();
+		//List<FType> ftype_list = np.getCatalog().getFunctionaltype();		
 		
-		/* Print the header of the table */
-		printHeader('#',"#Information about the CATALOG of VNFs");
-		printHeader("#Number of VNF types: "+set.size());
-		printHeader("#List of VNF types:");
-
+		CatalogType c = new CatalogType();
 		// For each VNF type print name and class
 		for (VNFTypeReader vnfType_r: set) {
-			System.out.println("Type name " + vnfType_r.getName() +"\tFunc type: "+vnfType_r.getFunctionalType().value()+
-								"\tRequired Mem:"+vnfType_r.getRequiredMemory()+"\tRequired Sto:"+vnfType_r.getRequiredStorage());
+			//System.out.println("Type name " + vnfType_r.getName() +"\tFunc type: "+vnfType_r.getFunctionalType().value()+
+								//"\tRequired Mem:"+vnfType_r.getRequiredMemory()+"\tRequired Sto:"+vnfType_r.getRequiredStorage());
 			
 			// Create ftype,set and add
 			FType ftype = new FType();	
-			ftype.setFunctionalTypeName(NodeFunctionalType.valueOf(vnfType_r.getName()));
+			ftype.setFunctionaltypeId(vnfType_r.getName());
+			ftype.setFunctionalTypeName(NodeFunctionalType.valueOf(vnfType_r.getFunctionalType().toString()));
 			ftype.setRequiredMemory(vnfType_r.getRequiredMemory());
 			ftype.setRequiredStorage(vnfType_r.getRequiredStorage());
-			ftype.setFunctionaltypeId(vnfType_r.getFunctionalType().value());
-			
-			ftype_list.add(ftype);
+			c.getFunctionaltype().add(ftype);
+			System.out.println("aaaa");
 		}
-		printBlankLine();
+		np.setCatalog(c);
+		System.out.println("** FINISH PRINTCATALOG **");
 	}
 
 	private void printHosts() {
+		System.out.println("** START PRINTHOSTS **");
 		// Get the list of Hosts
 		Set<HostReader> set = monitor.getHosts();
 		
-		// Create list InType
-		//List<HostType> in_list = np.getIn().getHost();
-		
-		// Create object intype
 		InType intype = new InType();
-		
-		/* Print the header of the table */
-		printHeader('#',"#Information about HOSTS");
-		printHeader("#Number of Hosts: "+set.size());
-		printHeader("#List of Hosts:");
-		
-		// For each Host print related data
+		HostType ht = new HostType();
 		for (HostReader host_r: set) {
-			// Create ht 
-			HostType ht = new HostType();
-			
-			printHeader('%',"###Data for Host " + host_r.getName());
-			// ht getname
 			ht.setHostName(host_r.getName());
-			
-			// Print maximum number of nodes
-			printHeader("#Maximum number of nodes: "+host_r.getMaxVNFs());
-			
-			// ht getMaxVNFs
 			ht.setNumberVNFs(host_r.getMaxVNFs());
-
-			// Print available memory
-			printHeader("#Available memory: "+host_r.getAvailableMemory());
-			
-			//ht getAvailableMem
 			ht.setMemory(host_r.getAvailableMemory());
-			
-			// Print available storage
-			printHeader("#Available storage: "+host_r.getAvailableStorage());	
-			
-			//ht available storage
 			ht.setDiskStorage(host_r.getAvailableStorage());
-			
-			// add host into intype
 			intype.getHost().add(ht);
-			
-			// Print allocated nodes
-			Set<NodeReader> nodeSet = host_r.getNodes();
-			ht.setNumberVNFs(nodeSet.size());
-			
-			printHeader("#Number of Allocated Nodes: "+nodeSet.size());
-			printHeader("#List of Allocated Nodes:");
-			for (NodeReader nr: nodeSet)
-				//NodeType node = new NodeType();
-				//node.setNodeName(nr.getName());
-				//node.setFunctionaltypeId(nr.getFuncType().getName());
-				System.out.println("Node " + nr.getName() +"\tType: "+nr.getFuncType().getName());
-			System.out.println("###End of Allocated nodes");
-			
 		}
-		printBlankLine();
+		np.getIn().add(intype);
+		System.out.println("** FINISH PRINTHOSTS **");
 	}
 
-	private void printBlankLine() {
-		System.out.println(" ");
-	}
 
 	private void printNffgs() throws DatatypeConfigurationException {
+		System.out.println("** START PRINTNFFG **");
+		
 		// Get the list of NF-FGs
 		Set<NffgReader> set = monitor.getNffgs(null);
+		
 		// Create nffglist
 		List<NffgType> nffglist = np.getNffg();
 		
-		/* Print the header of the table */
-		printHeader('#',"#Information about NF-FGs");
-		printHeader("#Number of NF-FGs: "+set.size());
-		printHeader("#List of NF-FGs:");	
-		
 		// For each NFFG print related data
 		for (NffgReader nffg_r: set) {
-			printHeader('%',"###Data for NF-FG " + nffg_r.getName());
+			//printHeader('%',"###Data for NF-FG " + nffg_r.getName());
 			
 			// Create nffgtype and set name
 			NffgType nffg = new NffgType();
 			nffg.setNameNffg(nffg_r.getName());
 			
 			// Print deploy time
-			Calendar deployTime = nffg_r.getDeployTime();
-			printHeader("#Deploy time: "+dateFormat.format(deployTime.getTime()));
+			//Calendar deployTime = nffg_r.getDeployTime();
+			//printHeader("#Deploy time: "+dateFormat.format(deployTime.getTime()));
 			
 			// Set deploytime for nffg
 			GregorianCalendar gc = new GregorianCalendar();
@@ -275,11 +246,10 @@ public class NfvInfoSerializer {
 			Set<NodeReader> nodeSet = nffg_r.getNodes();
 			// Create nodelist
 			List<NodeType> nodelist = nffg.getNode();
-			printHeader("#Number of Nodes: "+nodeSet.size());
-			printHeader("#List of Nodes: ");
+			
 			for (NodeReader nr: nodeSet) {
-				printHeader('+',"+Node " + nr.getName() +"\tType: "+nr.getFuncType().getName()+"\t Allocated on: "+nr.getHost().getName()+
-						"\tNumber of links: "+nr.getLinks().size());
+				//printHeader('+',"+Node " + nr.getName() +"\tType: "+nr.getFuncType().getName()+"\t Allocated on: "+nr.getHost().getName()+
+						//"\tNumber of links: "+nr.getLinks().size());
 				
 				// Create node,set node and add into nodelist
 				NodeType node = new NodeType();
@@ -291,12 +261,10 @@ public class NfvInfoSerializer {
 				Set<LinkReader> linkSet = nr.getLinks();
 				// Create linklist
 				List<LinkType> linklist = node.getLink();
-				
-				System.out.println("+List of Links for node "+nr.getName());
-				printHeader("Link name \tsource \tdestination",'-');
+								
 				for (LinkReader lr: linkSet) {
 					System.out.println(lr.getName()+"\t"+lr.getSourceNode().getName()+"\t"+lr.getDestinationNode().getName());
-				printLine('-');
+				
 				
 				// Create link,set link and add into listlink
 				LinkType link = new LinkType();
@@ -306,15 +274,16 @@ public class NfvInfoSerializer {
 				linklist.add(link);
 				}
 			}
-			printLine('+');
+			
 			System.out.println("###End of Nodes");
 			
 			//add into nffglist
 			nffglist.add(nffg);
 		}	
-		printBlankLine();
+		System.out.println("** FINISH PRINTCATALOG **");
 	}
-	
+
+/*
 	private void printLine(char c) {
 		System.out.println(makeLine(c));
 	}
@@ -341,6 +310,6 @@ public class NfvInfoSerializer {
 		}
 		return line;
 	}
-
+*/
 
 }
