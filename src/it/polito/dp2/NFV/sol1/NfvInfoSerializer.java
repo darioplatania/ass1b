@@ -128,13 +128,10 @@ File filename = new File (f);
 		InType inn=new InType();				
 	
 			for (HostReader sri: set) {
-			HostType ht = new HostType();
-			System.out.print("\t"+sri.getName());			
+			HostType ht = new HostType();		
 			ht.setHostName(sri.getName());
 		}
-		System.out.println(" ");
 		for (HostReader sri: set) {			
-			System.out.print(sri.getName());
 			for (HostReader srj: set) {
 				if (sri.getName()!=srj.getName()) {
 				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
@@ -143,13 +140,9 @@ File filename = new File (f);
 				pt.setSourceHost(sri.getName());
 				pt.setDestinationHost(srj.getName());
 				inn.getPerformance().add(pt);
-				System.out.print("\t"+cpr.getThroughput());
 				}
 			
-			}
-			//np.getIn().add(inn);
-			System.out.println(" ");
-			
+			}			
 		}
 		System.out.println("** FINISH PRINTPERFORMANCE **");
 	}
