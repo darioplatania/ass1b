@@ -1,7 +1,7 @@
 <!---DTD definition for Network services -->
 
         <!-- network provider -->
-        <!ELEMENT networkprovider (nffg*, in+, catalog)>
+        <!ELEMENT networkprovider (nffg*, in, catalog)>
 
         <!-- nffg -->
         <!ELEMENT nffg (node*)>
