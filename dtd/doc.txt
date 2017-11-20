@@ -1,0 +1,41 @@
+Building a dtd schema is very different from building an xsd schema, it is much simpler but there are
+less possibilities to build a preciser schema satisfying all requirements.
+It is not possible to reuse code so i have to rewrite all declaration every time i want to reuse them.
+In my project there is 1 root element that is the Network Provider (it contains a list of NF-FG).
+
+The big differences from the xsd schema is that it is not possible to define a key only in a specific level
+of my schema, in fact if i define an attribute as ID, the ID must be unique in all the xml file, this it means
+that it is not possible to have two node with same name in different NF-FG, same thing for link.
+
+Within the NF-FG there are nodes, characterized by a unique name and a functional type in the catalog. 
+A node can be linked via links that are characterized by a single name within the NF-FG and the source 
+and destination nodes of the connection.
+
+Within the Provider Catalog we find the functional type instead.
+
+Using the dtd schema it is no possible to set up more specific constraints.
+
+For each element it is possible to specify the occurrence and if it is required or optional (+, ?, *)
+if it is required or not (optional).
+
+
+This is the hierarchy of my schema:
+NETWORK PROVIDER
+  |
+  |-- NFFG* (NAME, deploy_time)
+  |     |
+  |     |-- NODE* (NAME, host_name, functionaltypeId)
+  |     |     |
+  |     |     |-- LINK (NAME, sourceNode,destinationNode, min_throughput, max_latency)
+  |     |
+  |     |
+  |	    |
+  |-- CATALOG
+  |		|
+  |		|-- FUNCTIONALTYPE* (functionaltypeId, functionalTypeName, required_memory, required_storage)
+  |
+  |-- IN
+  |		|
+  |		|-- HOST* (NAME, number_VNFs, memory, disk_storage)
+  |		|
+  |		|-- PERFORMANCE * (avg_throughput, latency, sourceHost, DestinationHost)

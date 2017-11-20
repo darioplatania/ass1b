@@ -18,7 +18,8 @@
         <!-- node -->
         <!ELEMENT node (link*)>
         <!ATTLIST node node_name ID #REQUIRED
-                host_name IDREF #REQUIRED>
+                host_name IDREF #REQUIRED
+                functionaltypeId IDREF #REQUIRED>
 
         <!-- link -->
         <!ELEMENT link EMPTY>

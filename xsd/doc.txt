@@ -1,0 +1,42 @@
+The xsd schema it is much complex and much powerfull than a dtd schema.
+It is possible to satisfy more precise constraints and there are more possibilities to
+reuse the code using extension of an element and to specify more complex constraints.
+In fact it is possible to do more checks verifying the correctness of the NF-FG structure
+demanding some checks to the validation of the xsd schema instead to do it in the application.
+So it is a distributed way to proceed. If the validation process succeeded, it is sure that the data
+structure passed to the application it's valid: the file is well formed.
+For example it is possible to check if in a NF-FG a link refers to two node that exists in the list of
+node.
+
+This is the hierarchy of my schema:
+NETWORK PROVIDER
+  |
+  |-- NFFG* (NAME, deploy_time)
+  |     |
+  |     |-- NODE* (NAME, host_name, functionaltypeId)
+  |     |     |
+  |     |     |-- LINK (NAME, sourceNode,destinationNode, min_throughput, max_latency)
+  |     |
+  |     |
+  |	    |
+  |-- CATALOG
+  |		|
+  |		|-- FUNCTIONALTYPE* (functionaltypeId, functionalTypeName, required_memory, required_storage)
+  |
+  |-- IN
+  |		|
+  |		|-- HOST* (NAME, number_VNFs, memory, disk_storage)
+  |		|
+  |		|-- PERFORMANCE * (avg_throughput, latency, sourceHost, DestinationHost)
+  
+  In my schema:
+ - inside a Network Provider it can't appear two NF-FG with same name;
+ - inside an NF-FGS it can't appear two NODE with same name;
+ - inside an NFFG it can't appear two link with same name;
+ 
+ IN e CATALOG they can only be one.
+ 
+Under the node element i have all the link that have the considered node as source, doing this i
+can have more information without doing other calculations in the application.
+
+  
