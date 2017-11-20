@@ -45,4 +45,8 @@ public class NodeReaderImpl extends NamedEntityReaderImpl implements NodeReader 
 	public String getName() {
 		return super.getName();
 	}
+	
+	public void addLink(LinkReader link){
+		this.links.add(link);
+	}
 }
