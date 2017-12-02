@@ -2,7 +2,7 @@
 // Questo file xe8 stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.0-b170531.0717 
 // Vedere <a href="https://jaxb.java.net/">https://jaxb.java.net/</a> 
 // Qualsiasi modifica a questo file andrxe0 persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.16 alle 05:43:53 PM CET 
+// Generato il: 2017.11.30 alle 05:37:13 PM CET 
 //
 
 
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;attribute name="sourceNode" use="required" type="{http://www.example.org/nfvInfo}name" /&gt;
  *       &lt;attribute name="destinationNode" use="required" type="{http://www.example.org/nfvInfo}name" /&gt;
  *       &lt;attribute name="min_throughput" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
- *       &lt;attribute name="max_latency" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="max_latency" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -48,7 +48,7 @@ public class LinkType {
     @XmlAttribute(name = "min_throughput")
     protected Float minThroughput;
     @XmlAttribute(name = "max_latency")
-    protected Float maxLatency;
+    protected Integer maxLatency;
 
     /**
      * Recupera il valore della proprietxE0 linkName.
@@ -151,10 +151,10 @@ public class LinkType {
      * 
      * @return
      *     possible object is
-     *     {@link Float }
+     *     {@link Integer }
      *     
      */
-    public Float getMaxLatency() {
+    public Integer getMaxLatency() {
         return maxLatency;
     }
 
@@ -163,10 +163,10 @@ public class LinkType {
      * 
      * @param value
      *     allowed object is
-     *     {@link Float }
+     *     {@link Integer }
      *     
      */
-    public void setMaxLatency(Float value) {
+    public void setMaxLatency(Integer value) {
         this.maxLatency = value;
     }
 

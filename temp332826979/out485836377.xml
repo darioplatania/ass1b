@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<networkProvider xmlns="http://www.example.org/nfvInfo">
+    <nffg name_nffg="Nffg1" deploy_time="2016-09-26T21:57:20.000+02:00">
+        <node node_name="FWd5Nffg1" host_name="H0" functionaltypeId="FWd">
+            <link link_name="Link23" sourceNode="FWd5Nffg1" destinationNode="WEBCLIENTt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link44" sourceNode="FWd5Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link20" sourceNode="FWd5Nffg1" destinationNode="CACHEe2Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link42" sourceNode="FWd5Nffg1" destinationNode="WEBCLIENTt0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link49" sourceNode="FWd5Nffg1" destinationNode="NATa7Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link30" sourceNode="FWd5Nffg1" destinationNode="CACHEe4Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link61" sourceNode="FWd5Nffg1" destinationNode="MAILCLIENTt4Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="CACHEe4Nffg1" host_name="H2" functionaltypeId="CACHEe">
+            <link link_name="Link22" sourceNode="CACHEe4Nffg1" destinationNode="WEBCLIENTt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link31" sourceNode="CACHEe4Nffg1" destinationNode="WEBCLIENTt2Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link14" sourceNode="CACHEe4Nffg1" destinationNode="VPNb8Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link47" sourceNode="CACHEe4Nffg1" destinationNode="MAILCLIENTt4Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link7" sourceNode="CACHEe4Nffg1" destinationNode="MAILCLIENTt3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link51" sourceNode="CACHEe4Nffg1" destinationNode="WEBCLIENTt0Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBCLIENTt1Nffg1" host_name="H1" functionaltypeId="WEBCLIENTt">
+            <link link_name="Link66" sourceNode="WEBCLIENTt1Nffg1" destinationNode="NATa7Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link2" sourceNode="WEBCLIENTt1Nffg1" destinationNode="FWd0Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILCLIENTt4Nffg1" host_name="H1" functionaltypeId="MAILCLIENTt">
+            <link link_name="Link59" sourceNode="MAILCLIENTt4Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link39" sourceNode="MAILCLIENTt4Nffg1" destinationNode="FWd5Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link8" sourceNode="MAILCLIENTt4Nffg1" destinationNode="FWd0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link82" sourceNode="MAILCLIENTt4Nffg1" destinationNode="CACHEe2Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="CACHEe1Nffg1" host_name="H2" functionaltypeId="CACHEe">
+            <link link_name="Link11" sourceNode="CACHEe1Nffg1" destinationNode="MAILSERVERt0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link33" sourceNode="CACHEe1Nffg1" destinationNode="FWd5Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link76" sourceNode="CACHEe1Nffg1" destinationNode="MAILCLIENTt4Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link38" sourceNode="CACHEe1Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link52" sourceNode="CACHEe1Nffg1" destinationNode="CACHEe4Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link62" sourceNode="CACHEe1Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="DPIc6Nffg1" host_name="H1" functionaltypeId="DPIc">
+            <link link_name="Link56" sourceNode="DPIc6Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link64" sourceNode="DPIc6Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link27" sourceNode="DPIc6Nffg1" destinationNode="WEBCLIENTt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link1" sourceNode="DPIc6Nffg1" destinationNode="WEBCLIENTt0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link13" sourceNode="DPIc6Nffg1" destinationNode="MAILSERVERt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link63" sourceNode="DPIc6Nffg1" destinationNode="VPNb8Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link50" sourceNode="DPIc6Nffg1" destinationNode="MAILCLIENTt4Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBCLIENTt2Nffg1" host_name="H2" functionaltypeId="WEBCLIENTt">
+            <link link_name="Link25" sourceNode="WEBCLIENTt2Nffg1" destinationNode="FWd5Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link35" sourceNode="WEBCLIENTt2Nffg1" destinationNode="FWd0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link4" sourceNode="WEBCLIENTt2Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link83" sourceNode="WEBCLIENTt2Nffg1" destinationNode="NATa7Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILSERVERt1Nffg1" host_name="H0" functionaltypeId="MAILSERVERt">
+            <link link_name="Link12" sourceNode="MAILSERVERt1Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link68" sourceNode="MAILSERVERt1Nffg1" destinationNode="VPNb8Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link73" sourceNode="MAILSERVERt1Nffg1" destinationNode="FWd0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link71" sourceNode="MAILSERVERt1Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILCLIENTt3Nffg1" host_name="H0" functionaltypeId="MAILCLIENTt">
+            <link link_name="Link67" sourceNode="MAILCLIENTt3Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link43" sourceNode="MAILCLIENTt3Nffg1" destinationNode="CACHEe2Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link58" sourceNode="MAILCLIENTt3Nffg1" destinationNode="FWd0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link18" sourceNode="MAILCLIENTt3Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link6" sourceNode="MAILCLIENTt3Nffg1" destinationNode="CACHEe4Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link74" sourceNode="MAILCLIENTt3Nffg1" destinationNode="NATa7Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="CACHEe2Nffg1" host_name="H0" functionaltypeId="CACHEe">
+            <link link_name="Link34" sourceNode="CACHEe2Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link55" sourceNode="CACHEe2Nffg1" destinationNode="FWd5Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link77" sourceNode="CACHEe2Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link21" sourceNode="CACHEe2Nffg1" destinationNode="VPNb8Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link46" sourceNode="CACHEe2Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="FWd0Nffg1" host_name="H1" functionaltypeId="FWd">
+            <link link_name="Link65" sourceNode="FWd0Nffg1" destinationNode="MAILSERVERt0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link48" sourceNode="FWd0Nffg1" destinationNode="WEBCLIENTt0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link70" sourceNode="FWd0Nffg1" destinationNode="MAILSERVERt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link3" sourceNode="FWd0Nffg1" destinationNode="WEBCLIENTt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link40" sourceNode="FWd0Nffg1" destinationNode="NATa7Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link9" sourceNode="FWd0Nffg1" destinationNode="MAILCLIENTt4Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link60" sourceNode="FWd0Nffg1" destinationNode="WEBCLIENTt2Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="NATa7Nffg1" host_name="H2" functionaltypeId="NATa">
+            <link link_name="Link45" sourceNode="NATa7Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link78" sourceNode="NATa7Nffg1" destinationNode="MAILCLIENTt3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link26" sourceNode="NATa7Nffg1" destinationNode="CACHEe2Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link37" sourceNode="NATa7Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link19" sourceNode="NATa7Nffg1" destinationNode="MAILSERVERt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link29" sourceNode="NATa7Nffg1" destinationNode="FWd5Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link17" sourceNode="NATa7Nffg1" destinationNode="FWd0Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="CACHEe3Nffg1" host_name="H1" functionaltypeId="CACHEe">
+            <link link_name="Link53" sourceNode="CACHEe3Nffg1" destinationNode="MAILCLIENTt3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link75" sourceNode="CACHEe3Nffg1" destinationNode="CACHEe2Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link16" sourceNode="CACHEe3Nffg1" destinationNode="VPNb8Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link5" sourceNode="CACHEe3Nffg1" destinationNode="WEBCLIENTt2Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link28" sourceNode="CACHEe3Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link41" sourceNode="CACHEe3Nffg1" destinationNode="FWd5Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link72" sourceNode="CACHEe3Nffg1" destinationNode="WEBCLIENTt0Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="VPNb8Nffg1" host_name="H0" functionaltypeId="VPNb">
+            <link link_name="Link32" sourceNode="VPNb8Nffg1" destinationNode="MAILSERVERt0Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link54" sourceNode="VPNb8Nffg1" destinationNode="WEBCLIENTt1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link15" sourceNode="VPNb8Nffg1" destinationNode="MAILCLIENTt4Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBCLIENTt0Nffg1" host_name="H0" functionaltypeId="WEBCLIENTt">
+            <link link_name="Link0" sourceNode="WEBCLIENTt0Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link36" sourceNode="WEBCLIENTt0Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link69" sourceNode="WEBCLIENTt0Nffg1" destinationNode="VPNb8Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link57" sourceNode="WEBCLIENTt0Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link81" sourceNode="WEBCLIENTt0Nffg1" destinationNode="CACHEe4Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILSERVERt0Nffg1" host_name="H2" functionaltypeId="MAILSERVERt">
+            <link link_name="Link10" sourceNode="MAILSERVERt0Nffg1" destinationNode="CACHEe1Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link24" sourceNode="MAILSERVERt0Nffg1" destinationNode="DPIc6Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link79" sourceNode="MAILSERVERt0Nffg1" destinationNode="NATa7Nffg1" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link80" sourceNode="MAILSERVERt0Nffg1" destinationNode="CACHEe3Nffg1" min_throughput="0.0" max_latency="0"/>
+        </node>
+    </nffg>
+    <nffg name_nffg="Nffg0" deploy_time="2016-09-25T18:17:20.000+02:00">
+        <node node_name="WEBSERVERt2Nffg0" host_name="H1" functionaltypeId="WEBSERVERt">
+            <link link_name="Link16" sourceNode="WEBSERVERt2Nffg0" destinationNode="DPIc3Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link13" sourceNode="WEBSERVERt2Nffg0" destinationNode="DPIc6Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link18" sourceNode="WEBSERVERt2Nffg0" destinationNode="FWd4Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link51" sourceNode="WEBSERVERt2Nffg0" destinationNode="NATa5Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link8" sourceNode="WEBSERVERt2Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="CACHEe2Nffg0" host_name="H1" functionaltypeId="CACHEe">
+            <link link_name="Link10" sourceNode="CACHEe2Nffg0" destinationNode="WEBSERVERt1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link32" sourceNode="CACHEe2Nffg0" destinationNode="FWd4Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link14" sourceNode="CACHEe2Nffg0" destinationNode="DPIc6Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link46" sourceNode="CACHEe2Nffg0" destinationNode="MAILCLIENTt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link39" sourceNode="CACHEe2Nffg0" destinationNode="WEBCLIENTt1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link9" sourceNode="CACHEe2Nffg0" destinationNode="WEBSERVERt2Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="DPIc6Nffg0" host_name="H2" functionaltypeId="DPIc">
+            <link link_name="Link20" sourceNode="DPIc6Nffg0" destinationNode="MAILCLIENTt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link37" sourceNode="DPIc6Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link29" sourceNode="DPIc6Nffg0" destinationNode="FWd4Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link5" sourceNode="DPIc6Nffg0" destinationNode="MAILSERVERt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link28" sourceNode="DPIc6Nffg0" destinationNode="WEBSERVERt1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="FWd4Nffg0" host_name="H0" functionaltypeId="FWd">
+            <link link_name="Link33" sourceNode="FWd4Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link42" sourceNode="FWd4Nffg0" destinationNode="MAILSERVERt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link15" sourceNode="FWd4Nffg0" destinationNode="WEBSERVERt2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link25" sourceNode="FWd4Nffg0" destinationNode="MAILCLIENTt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link24" sourceNode="FWd4Nffg0" destinationNode="DPIc0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link30" sourceNode="FWd4Nffg0" destinationNode="DPIc6Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="DPIc1Nffg0" host_name="H0" functionaltypeId="DPIc">
+            <link link_name="Link21" sourceNode="DPIc1Nffg0" destinationNode="WEBCLIENTt1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link43" sourceNode="DPIc1Nffg0" destinationNode="WEBSERVERt2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link54" sourceNode="DPIc1Nffg0" destinationNode="FWd4Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link36" sourceNode="DPIc1Nffg0" destinationNode="DPIc0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link1" sourceNode="DPIc1Nffg0" destinationNode="MAILCLIENTt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link7" sourceNode="DPIc1Nffg0" destinationNode="WEBSERVERt1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBSERVERt1Nffg0" host_name="H0" functionaltypeId="WEBSERVERt">
+            <link link_name="Link56" sourceNode="WEBSERVERt1Nffg0" destinationNode="FWd4Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link44" sourceNode="WEBSERVERt1Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link27" sourceNode="WEBSERVERt1Nffg0" destinationNode="NATa5Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link48" sourceNode="WEBSERVERt1Nffg0" destinationNode="DPIc0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link6" sourceNode="WEBSERVERt1Nffg0" destinationNode="DPIc1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="NATa5Nffg0" host_name="H1" functionaltypeId="NATa">
+            <link link_name="Link31" sourceNode="NATa5Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link35" sourceNode="NATa5Nffg0" destinationNode="WEBSERVERt2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link19" sourceNode="NATa5Nffg0" destinationNode="WEBCLIENTt1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link52" sourceNode="NATa5Nffg0" destinationNode="DPIc3Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link40" sourceNode="NATa5Nffg0" destinationNode="DPIc0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link50" sourceNode="NATa5Nffg0" destinationNode="WEBSERVERt1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="DPIc0Nffg0" host_name="H2" functionaltypeId="DPIc">
+            <link link_name="Link23" sourceNode="DPIc0Nffg0" destinationNode="MAILSERVERt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link11" sourceNode="DPIc0Nffg0" destinationNode="WEBCLIENTt1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link55" sourceNode="DPIc0Nffg0" destinationNode="NATa5Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link53" sourceNode="DPIc0Nffg0" destinationNode="WEBSERVERt2Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILSERVERt0Nffg0" host_name="H2" functionaltypeId="MAILSERVERt">
+            <link link_name="Link49" sourceNode="MAILSERVERt0Nffg0" destinationNode="DPIc1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link4" sourceNode="MAILSERVERt0Nffg0" destinationNode="DPIc6Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBCLIENTt1Nffg0" host_name="H1" functionaltypeId="WEBCLIENTt">
+            <link link_name="Link12" sourceNode="WEBCLIENTt1Nffg0" destinationNode="DPIc0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link38" sourceNode="WEBCLIENTt1Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link2" sourceNode="WEBCLIENTt1Nffg0" destinationNode="DPIc3Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link41" sourceNode="WEBCLIENTt1Nffg0" destinationNode="DPIc6Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILCLIENTt0Nffg0" host_name="H0" functionaltypeId="MAILCLIENTt">
+            <link link_name="Link34" sourceNode="MAILCLIENTt0Nffg0" destinationNode="CACHEe2Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link45" sourceNode="MAILCLIENTt0Nffg0" destinationNode="DPIc3Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link0" sourceNode="MAILCLIENTt0Nffg0" destinationNode="DPIc1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link17" sourceNode="MAILCLIENTt0Nffg0" destinationNode="NATa5Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="DPIc3Nffg0" host_name="H2" functionaltypeId="DPIc">
+            <link link_name="Link22" sourceNode="DPIc3Nffg0" destinationNode="NATa5Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link26" sourceNode="DPIc3Nffg0" destinationNode="DPIc1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link47" sourceNode="DPIc3Nffg0" destinationNode="FWd4Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link3" sourceNode="DPIc3Nffg0" destinationNode="WEBCLIENTt1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+    </nffg>
+    <in>
+        <host hostName="H0" number_VNFs="11" memory="5900" disk_storage="88000"/>
+        <host hostName="H1" number_VNFs="15" memory="1700" disk_storage="16000"/>
+        <host hostName="H2" number_VNFs="10" memory="5800" disk_storage="29000"/>
+        <performance avg_throughput="72.08" latency="54.0" sourceHost="H0" destinationHost="H1"/>
+        <performance avg_throughput="95.69" latency="53.0" sourceHost="H0" destinationHost="H2"/>
+        <performance avg_throughput="2.74" latency="54.0" sourceHost="H1" destinationHost="H0"/>
+        <performance avg_throughput="51.41" latency="84.0" sourceHost="H1" destinationHost="H2"/>
+        <performance avg_throughput="36.0" latency="53.0" sourceHost="H2" destinationHost="H0"/>
+        <performance avg_throughput="32.42" latency="84.0" sourceHost="H2" destinationHost="H1"/>
+    </in>
+    <catalog>
+        <functionaltype functionaltypeId="MAILCLIENTt" functionalTypeName="MAIL_CLIENT" required_memory="17" required_storage="260"/>
+        <functionaltype functionaltypeId="WEBCLIENTt" functionalTypeName="WEB_CLIENT" required_memory="29" required_storage="100"/>
+        <functionaltype functionaltypeId="MAILSERVERt" functionalTypeName="MAIL_SERVER" required_memory="70" required_storage="3500"/>
+        <functionaltype functionaltypeId="WEBSERVERt" functionalTypeName="WEB_SERVER" required_memory="180" required_storage="9100"/>
+        <functionaltype functionaltypeId="NATa" functionalTypeName="NAT" required_memory="13" required_storage="210"/>
+        <functionaltype functionaltypeId="VPNb" functionalTypeName="VPN" required_memory="73" required_storage="810"/>
+        <functionaltype functionaltypeId="DPIc" functionalTypeName="DPI" required_memory="38" required_storage="530"/>
+        <functionaltype functionaltypeId="FWd" functionalTypeName="FW" required_memory="28" required_storage="630"/>
+        <functionaltype functionaltypeId="CACHEe" functionalTypeName="CACHE" required_memory="12" required_storage="340"/>
+    </catalog>
+</networkProvider>

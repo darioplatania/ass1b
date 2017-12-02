@@ -2,7 +2,7 @@
 // Questo file xe8 stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.3.0-b170531.0717 
 // Vedere <a href="https://jaxb.java.net/">https://jaxb.java.net/</a> 
 // Qualsiasi modifica a questo file andrxe0 persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.16 alle 05:43:53 PM CET 
+// Generato il: 2017.11.30 alle 05:37:13 PM CET 
 //
 
 
@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;attribute name="functionaltypeId" use="required" type="{http://www.example.org/nfvInfo}name" /&gt;
  *       &lt;attribute name="functionalTypeName" use="required" type="{http://www.example.org/nfvInfo}NodeFunctionalType" /&gt;
- *       &lt;attribute name="required_memory" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
- *       &lt;attribute name="required_storage" use="required" type="{http://www.w3.org/2001/XMLSchema}float" /&gt;
+ *       &lt;attribute name="required_memory" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
+ *       &lt;attribute name="required_storage" use="required" type="{http://www.w3.org/2001/XMLSchema}int" /&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -43,9 +43,9 @@ public class FType {
     @XmlAttribute(name = "functionalTypeName", required = true)
     protected NodeFunctionalType functionalTypeName;
     @XmlAttribute(name = "required_memory", required = true)
-    protected float requiredMemory;
+    protected int requiredMemory;
     @XmlAttribute(name = "required_storage", required = true)
-    protected float requiredStorage;
+    protected int requiredStorage;
 
     /**
      * Recupera il valore della proprietxE0 functionaltypeId.
@@ -99,7 +99,7 @@ public class FType {
      * Recupera il valore della proprietxE0 requiredMemory.
      * 
      */
-    public float getRequiredMemory() {
+    public int getRequiredMemory() {
         return requiredMemory;
     }
 
@@ -107,7 +107,7 @@ public class FType {
      * Imposta il valore della proprietxE0 requiredMemory.
      * 
      */
-    public void setRequiredMemory(float value) {
+    public void setRequiredMemory(int value) {
         this.requiredMemory = value;
     }
 
@@ -115,7 +115,7 @@ public class FType {
      * Recupera il valore della proprietxE0 requiredStorage.
      * 
      */
-    public float getRequiredStorage() {
+    public int getRequiredStorage() {
         return requiredStorage;
     }
 
@@ -123,7 +123,7 @@ public class FType {
      * Imposta il valore della proprietxE0 requiredStorage.
      * 
      */
-    public void setRequiredStorage(float value) {
+    public void setRequiredStorage(int value) {
         this.requiredStorage = value;
     }
 

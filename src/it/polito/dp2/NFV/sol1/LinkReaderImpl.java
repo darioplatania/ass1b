@@ -10,7 +10,8 @@ public class LinkReaderImpl extends NamedEntityReaderImpl implements LinkReader 
 	private int latency;
 	private float throughput;
 	
-	private LinkReaderImpl(String name,NodeReader source, NodeReader dest,int latency,float throughput) {
+
+	public LinkReaderImpl(String name,NodeReader source, NodeReader dest,int latency,float throughput) {
 		super(name);
 		this.source = source;
 		this.dest = dest;
@@ -42,5 +43,10 @@ public class LinkReaderImpl extends NamedEntityReaderImpl implements LinkReader 
 	public float getThroughput() {
 		return this.throughput;
 	}
+	
+	public void setDestinationNode(NodeReader dest){
+		this.dest = dest;
+	}
+	
 
 }

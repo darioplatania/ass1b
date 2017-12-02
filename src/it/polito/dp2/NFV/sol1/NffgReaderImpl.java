@@ -2,40 +2,43 @@ package it.polito.dp2.NFV.sol1;
 
 import java.util.*;
 
-import it.polito.dp2.NFV.NffgReader;
-import it.polito.dp2.NFV.NodeReader;
+import it.polito.dp2.NFV.*;
+
 
 public class NffgReaderImpl extends NamedEntityReaderImpl implements NffgReader {
 	
-	 Calendar UpdateTime;
-	 private Set<NodeReader> nodes;
+	 Calendar DeployTime;
+	 private HashMap<String,NodeReader> nodes;	
+		
+	public NffgReaderImpl(String name,Calendar DeployTime){
+		super(name);
+		this.DeployTime = DeployTime;
+		this.nodes = new HashMap<>();
+		
+	}
+		
 	 
-	 public NffgReaderImpl(String name,Calendar UpdateTime, Set<NodeReader> nodes) {
-		 super(name);
-		 this.UpdateTime = UpdateTime;
-		 this.nodes = nodes;
-	 }
-	 
-	 public void addNode(NodeReader n){
+	 public void addNode(NodeReaderImpl n){
 			if(n!=null)
-				this.nodes.add(n);
+				this.nodes.put(n.getName(), n);
 		}
 	 
 	 @Override
 	 public Calendar getDeployTime() {
-		 return this.UpdateTime;
+		 return this.DeployTime;
 	 }
 	 
 	 @Override
 	 public Set<NodeReader> getNodes(){
-		 return this.nodes;
+		 return new LinkedHashSet<NodeReader>(this.nodes.values());
 	 }
 	 
 	 @Override
 		public NodeReader getNode(String arg0) {
-			for(NodeReader nr:this.nodes){
-				if(nr.getName()==arg0)
-					return nr;
+			for(Map.Entry<String, NodeReader> nr: this.nodes.entrySet()){
+				if(nr.getValue().getName()==arg0)
+					return  nr.getValue();
+				//return  (NodeReader) nr;
 			}
 			return null;
 		}

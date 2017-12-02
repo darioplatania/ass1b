@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<networkProvider xmlns="http://www.example.org/nfvInfo">
+    <nffg name_nffg="Nffg0" deploy_time="2016-09-27T12:01:20.000+02:00">
+        <node node_name="MAILCLIENTt1Nffg0" host_name="H1" functionaltypeId="MAILCLIENTt">
+            <link link_name="Link2" sourceNode="MAILCLIENTt1Nffg0" destinationNode="SPAMa4Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="FWb7Nffg0" host_name="H1" functionaltypeId="FWb">
+            <link link_name="Link5" sourceNode="FWb7Nffg0" destinationNode="WEBSERVERt0Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBSERVERt4Nffg0" host_name="H0" functionaltypeId="WEBSERVERt">
+            <link link_name="Link12" sourceNode="WEBSERVERt4Nffg0" destinationNode="FWb5Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="SPAMa0Nffg0" host_name="H1" functionaltypeId="SPAMa">
+            <link link_name="Link15" sourceNode="SPAMa0Nffg0" destinationNode="MAILSERVERt1Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link1" sourceNode="SPAMa0Nffg0" destinationNode="MAILCLIENTt0Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link9" sourceNode="SPAMa0Nffg0" destinationNode="MAILSERVERt2Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="SPAMa3Nffg0" host_name="H0" functionaltypeId="SPAMa">
+            <link link_name="Link7" sourceNode="SPAMa3Nffg0" destinationNode="MAILSERVERt1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILSERVERt1Nffg0" host_name="H1" functionaltypeId="MAILSERVERt">
+            <link link_name="Link6" sourceNode="MAILSERVERt1Nffg0" destinationNode="SPAMa3Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="WEBSERVERt0Nffg0" host_name="H0" functionaltypeId="WEBSERVERt">
+            <link link_name="Link4" sourceNode="WEBSERVERt0Nffg0" destinationNode="FWb7Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="FWb6Nffg0" host_name="H1" functionaltypeId="FWb"/>
+        <node node_name="WEBSERVERt3Nffg0" host_name="H1" functionaltypeId="WEBSERVERt">
+            <link link_name="Link10" sourceNode="WEBSERVERt3Nffg0" destinationNode="FWb5Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="SPAMa1Nffg0" host_name="H0" functionaltypeId="SPAMa"/>
+        <node node_name="FWb5Nffg0" host_name="H0" functionaltypeId="FWb">
+            <link link_name="Link11" sourceNode="FWb5Nffg0" destinationNode="WEBSERVERt3Nffg0" min_throughput="0.0" max_latency="0"/>
+            <link link_name="Link13" sourceNode="FWb5Nffg0" destinationNode="WEBSERVERt4Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILSERVERt2Nffg0" host_name="H0" functionaltypeId="MAILSERVERt">
+            <link link_name="Link8" sourceNode="MAILSERVERt2Nffg0" destinationNode="SPAMa0Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="FWb8Nffg0" host_name="H1" functionaltypeId="FWb">
+            <link link_name="Link14" sourceNode="FWb8Nffg0" destinationNode="SPAMa0Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="FWb2Nffg0" host_name="H1" functionaltypeId="FWb"/>
+        <node node_name="SPAMa4Nffg0" host_name="H1" functionaltypeId="SPAMa">
+            <link link_name="Link3" sourceNode="SPAMa4Nffg0" destinationNode="MAILCLIENTt1Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+        <node node_name="MAILCLIENTt0Nffg0" host_name="H0" functionaltypeId="MAILCLIENTt">
+            <link link_name="Link0" sourceNode="MAILCLIENTt0Nffg0" destinationNode="SPAMa0Nffg0" min_throughput="0.0" max_latency="0"/>
+        </node>
+    </nffg>
+    <in>
+        <host hostName="H0" number_VNFs="7" memory="8200" disk_storage="90000"/>
+        <host hostName="H1" number_VNFs="14" memory="3300" disk_storage="36000"/>
+        <performance avg_throughput="22.68" latency="84.0" sourceHost="H0" destinationHost="H1"/>
+        <performance avg_throughput="98.97" latency="84.0" sourceHost="H1" destinationHost="H0"/>
+    </in>
+    <catalog>
+        <functionaltype functionaltypeId="MAILCLIENTt" functionalTypeName="MAIL_CLIENT" required_memory="77" required_storage="580"/>
+        <functionaltype functionaltypeId="WEBCLIENTt" functionalTypeName="WEB_CLIENT" required_memory="71" required_storage="640"/>
+        <functionaltype functionaltypeId="MAILSERVERt" functionalTypeName="MAIL_SERVER" required_memory="210" required_storage="7000"/>
+        <functionaltype functionaltypeId="WEBSERVERt" functionalTypeName="WEB_SERVER" required_memory="200" required_storage="5500"/>
+        <functionaltype functionaltypeId="SPAMa" functionalTypeName="SPAM" required_memory="71" required_storage="740"/>
+        <functionaltype functionaltypeId="FWb" functionalTypeName="FW" required_memory="89" required_storage="200"/>
+    </catalog>
+</networkProvider>

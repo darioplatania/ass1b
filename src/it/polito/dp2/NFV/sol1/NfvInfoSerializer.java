@@ -25,9 +25,12 @@ import it.polito.dp2.NFV.sol1.jaxb.*;
 
 public class NfvInfoSerializer {
 	
-	private static final String W3C_XML_SCHEMA_NS_URI = null;
+	//private static final String W3C_XML_SCHEMA_NS_URI = null;
 	private NfvReader monitor;
 	private DateFormat dateFormat;
+	private static final String XSD_FOLDER = "xsd/";
+    private static final String XSD_FILE = "nfvInfo.xsd";
+    private static final String PACKAGE = "it.polito.dp2.NFV.sol1.jaxb";
 	public NetworkProvider np;	
 	
 	/**
@@ -76,7 +79,7 @@ File filename = new File (f);
 		
 		JAXBContext jc = null;
 		try {
-			jc = JAXBContext.newInstance( "it.polito.dp2.NFV.sol1.jaxb" );
+			jc = JAXBContext.newInstance( PACKAGE );
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +97,7 @@ File filename = new File (f);
 		SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		
 		try {
-			Schema schema  = sf.newSchema(new File("xsd/nfvInfo.xsd"));
+			Schema schema  = sf.newSchema(new File(XSD_FOLDER + XSD_FILE));
 			m.setSchema(schema);
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
@@ -120,12 +123,11 @@ File filename = new File (f);
 
 	private void printPerformance() {
 		
-		System.out.println("**START PRINT PERFORMANCE **");
+		System.out.println("** START PRINT PERFORMANCE **");
 		// Get the list of Hosts
 		Set<HostReader> set = monitor.getHosts();
 		
-		PerformanceType pt=new PerformanceType();
-		InType inn=new InType();				
+		//InType inn=new InType();				
 	
 			for (HostReader sri: set) {
 			HostType ht = new HostType();		
@@ -134,12 +136,13 @@ File filename = new File (f);
 		for (HostReader sri: set) {			
 			for (HostReader srj: set) {
 				if (sri.getName()!=srj.getName()) {
+				PerformanceType pt=new PerformanceType();
 				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
 				pt.setAvgThroughput(cpr.getThroughput());
 				pt.setLatency(cpr.getLatency());
 				pt.setSourceHost(sri.getName());
 				pt.setDestinationHost(srj.getName());
-				inn.getPerformance().add(pt);
+				np.getIn().getPerformance().add(pt);
 				}
 			
 			}			
@@ -178,8 +181,7 @@ File filename = new File (f);
 			ht.setHostName(host_r.getName());
 			ht.setNumberVNFs(host_r.getMaxVNFs());
 			ht.setMemory(host_r.getAvailableMemory());
-			ht.setDiskStorage(host_r.getAvailableStorage());
-			System.out.println("Nome:" + ht.getHostName()) ;
+			ht.setDiskStorage(host_r.getAvailableStorage());			
 			np.getIn().getHost().add(ht);
 		}
 		System.out.println("** FINISH PRINTHOSTS **");
@@ -233,6 +235,8 @@ File filename = new File (f);
 				link.setLinkName(lr.getName());
 				link.setSourceNode(lr.getSourceNode().getName());
 				link.setDestinationNode(lr.getDestinationNode().getName());
+				link.setMinThroughput(lr.getThroughput());
+				link.setMaxLatency(lr.getLatency());
 				linklist.add(link);
 				}
 			}			

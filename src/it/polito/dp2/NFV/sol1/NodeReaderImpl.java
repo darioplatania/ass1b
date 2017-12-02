@@ -5,19 +5,21 @@ import it.polito.dp2.NFV.HostReader;
 import it.polito.dp2.NFV.LinkReader;
 import it.polito.dp2.NFV.NffgReader;
 import it.polito.dp2.NFV.VNFTypeReader;
+
 import java.util.*;
 
 public class NodeReaderImpl extends NamedEntityReaderImpl implements NodeReader {
 	
 		private HostReader hosts;
 		private NffgReader nffgs;
-		private VNFTypeReader vnfs;
-		private Set<LinkReader> links;
+		private VNFTypeReader vnfs;		
+		private HashMap<String,LinkReader> links;
 	
-	public NodeReaderImpl(String name,HostReader hosts,NffgReader nffgs,VNFTypeReader vnfs,Set<LinkReader> links) {
+	
+	public NodeReaderImpl(String name,HostReader hosts,NffgReader nffgs,VNFTypeReader vnfs) {
 		super(name);
 		this.hosts = hosts;
-		this.links = links;
+		this.links = new HashMap<String,LinkReader>();
 		this.nffgs = nffgs;
 		this.vnfs = vnfs;
 	}
@@ -34,7 +36,7 @@ public class NodeReaderImpl extends NamedEntityReaderImpl implements NodeReader 
 
 	@Override
 	public Set<LinkReader> getLinks() {
-		return this.links;
+		return new LinkedHashSet<LinkReader>(this.links.values());
 	}
 
 	@Override
@@ -42,11 +44,19 @@ public class NodeReaderImpl extends NamedEntityReaderImpl implements NodeReader 
 		return this.nffgs;
 	}
 	
-	public String getName() {
+	/*public String getName() {
 		return super.getName();
-	}
+	}*/
 	
 	public void addLink(LinkReader link){
-		this.links.add(link);
+		if(link != null)
+		this.links.put(link.getName(), link);
+	}
+	
+	public LinkReader getLink(String LID){
+		for(Map.Entry<String, LinkReader> lr: this.links.entrySet())
+			if(lr.getValue().getName().equals(LID))
+				return lr.getValue();
+		return null;
 	}
 }
