@@ -28,8 +28,6 @@ public class NfvReaderImpl implements NfvReader {
     private HashMap<String, VNFTypeReaderImpl> vnf_list = new HashMap<>();
     private HashMap<String, ConnectionPerformanceReaderImpl> cpr_list = new HashMap<>();
 	
-
-	
 	
 	private static final String XSD_FOLDER = "xsd/";
     private static final String XSD_FILE = "nfvInfo.xsd";
@@ -150,11 +148,6 @@ public class NfvReaderImpl implements NfvReader {
 		}
 		
 		//HOST
-        //DA RICONTROLLARE SOPRATTUTTO SE HA SENSO PULIRE LA LISTA  DEGLI HOST USATA E METTERGLI QUESTE NUOVE INFO
-		System.out.println("PRIMA DELLA CLEAR: " + host_list.size());
-		
-		
-		
 		for (Map.Entry<String, HostReaderImpl> host_r : host_list.entrySet()) {
 			for(Map.Entry<String, NffgReaderImpl> nffg : nffgs.entrySet()) {
 				for(NodeReader node : nffg.getValue().getNodes()) {
@@ -170,25 +163,13 @@ public class NfvReaderImpl implements NfvReader {
         
         
         //PERFORMANCE
-        /*
-	 	NfvReaderImpl nfvreader = new NfvReaderImpl();
-    		ArrayList<NfvReaderImpl> nfvri_array = new ArrayList<NfvReaderImpl>();
-        //DA RICONTROLLARE
-        for(HostReaderImpl i : host_list) {
-        		for(PerformanceType j : this.np.getIn().getPerformance()) {
-        			if(i.getName() == j.getSourceHost()) {
-        				nfvreader.getConnectionPerformance(i,HostReaderImpl.class.cast(j.getDestinationHost()));	
-        			}
-        			nfvri_array.add(nfvreader);
-        		}
-        }*/
 		for(Map.Entry<String, HostReaderImpl> i : host_list.entrySet()) {
 			for(PerformanceType pf : this.np.getIn().getPerformance()) {
-				if((i.getValue().getName().equals(pf.getSourceHost()) || i.getValue().getName().equals(pf.getDestinationHost())) && (!pf.getSourceHost().equals(pf.getDestinationHost()))) {
+				//if((i.getValue().getName().equals(pf.getSourceHost()) || i.getValue().getName().equals(pf.getDestinationHost())) && (!pf.getSourceHost().equals(pf.getDestinationHost()))) {
 					ConnectionPerformanceReaderImpl cpri = new ConnectionPerformanceReaderImpl(pf);
 					String var = pf.getSourceHost() + "-" + pf.getDestinationHost();
 					cpr_list.put(var,cpri);
-				}
+				//}
 			}
 		}
             
@@ -196,8 +177,11 @@ public class NfvReaderImpl implements NfvReader {
 	}
 
 	@Override
-	public ConnectionPerformanceReader getConnectionPerformance(HostReader arg0, HostReader arg1) {
-		return this.cpr;
+	public ConnectionPerformanceReader getConnectionPerformance(HostReader arg0, HostReader arg1)  {
+		
+		String var = arg0.getName() + "-" + arg1.getName();	
+		return this.cpr_list.get(var);			
+			
 	}
 
 	@Override

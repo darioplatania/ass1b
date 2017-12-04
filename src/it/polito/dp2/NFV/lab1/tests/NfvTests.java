@@ -238,7 +238,7 @@ public class NfvTests {
             assertNotNull("wrong getHost", tnr.getHost());
         	assertEquals(rnr.getHost().getName(), tnr.getHost().getName());
         }
-		List<Iterator<LinkReader>> list = startComparison(rnr.getLinks(), tnr.getLinks(), "Nodes");
+		List<Iterator<LinkReader>> list = startComparison(rnr.getLinks(), tnr.getLinks(), "Links");
 		if (list!=null) {
 			Iterator<LinkReader> ri = list.get(0);
 			Iterator<LinkReader> ti = list.get(1);
@@ -292,19 +292,22 @@ public class NfvTests {
     		for(HostReader server2:rss) {
     			// call getConnectionPerformance on the two implementations
     			ConnectionPerformanceReader rpr = referenceNfvReader.getConnectionPerformance(server1, server2);
-    			ConnectionPerformanceReader tpr = referenceNfvReader.getConnectionPerformance(server1, server2);
+    			ConnectionPerformanceReader tpr = testNfvReader.getConnectionPerformance(server1, server2);
     			compareConnectionPerformanceReader(rpr, tpr);
     		}
     }
 
 	private void compareConnectionPerformanceReader(ConnectionPerformanceReader rpr, ConnectionPerformanceReader tpr) {
 		// check the ConnectionPerformanceReaders are not null
-		assertNotNull("internal tester error: null ConnectionPerformanceReader", rpr);
-        assertNotNull("a null ConnectionPerformanceReader has been found", tpr);
+		//assertNotNull("internal tester error: null ConnectionPerformanceReader", rpr);
+        //assertNotNull("a null ConnectionPerformanceReader has been found", tpr);
         
         // check the ConnectionPerformanceReaders return the same data
-		compareFloat(rpr.getThroughput(), tpr.getThroughput(),"throughput");
-		assertEquals("wrong latency", rpr.getLatency(), tpr.getLatency());
+		if(rpr!=null) {
+			assertNotNull("a null ConnectionPerformanceReader has been found", tpr);
+			compareFloat(rpr.getThroughput(), tpr.getThroughput(),"throughput");
+			assertEquals("wrong latency", rpr.getLatency(), tpr.getLatency());
+		}
 	}
 
 }

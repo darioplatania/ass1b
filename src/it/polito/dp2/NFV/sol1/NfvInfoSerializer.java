@@ -31,7 +31,7 @@ public class NfvInfoSerializer {
 	private static final String XSD_FOLDER = "xsd/";
     private static final String XSD_FILE = "nfvInfo.xsd";
     private static final String PACKAGE = "it.polito.dp2.NFV.sol1.jaxb";
-	public NetworkProvider np;	
+	private NetworkProvider np;	
 	
 	/**
 	 * Default constructror
@@ -135,7 +135,7 @@ File filename = new File (f);
 		}
 		for (HostReader sri: set) {			
 			for (HostReader srj: set) {
-				if (sri.getName()!=srj.getName()) {
+				//if (sri.getName()!=srj.getName()) {
 				PerformanceType pt=new PerformanceType();
 				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
 				pt.setAvgThroughput(cpr.getThroughput());
@@ -143,7 +143,7 @@ File filename = new File (f);
 				pt.setSourceHost(sri.getName());
 				pt.setDestinationHost(srj.getName());
 				np.getIn().getPerformance().add(pt);
-				}
+				//}
 			
 			}			
 		}
