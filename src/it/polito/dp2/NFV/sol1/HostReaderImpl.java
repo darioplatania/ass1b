@@ -13,15 +13,6 @@ public class HostReaderImpl extends NamedEntityReaderImpl implements HostReader 
 	private int maxvnf;
 	private HashMap<String,NodeReader> nodes;
 	
-	
-	/*public HostReaderImpl(String name,int availablememory,int availablestorage,int maxvnf ) {
-		super(name);
-		this.availablememory = availablememory;
-		this.availablestorage = availablestorage;
-		this.maxvnf = maxvnf;
-		this.nodes = new HashSet<NodeReader>();
-	}*/
-	
 	public HostReaderImpl(HostType host){
 		super(host.getHostName());
 		this.availablememory = host.getMemory();

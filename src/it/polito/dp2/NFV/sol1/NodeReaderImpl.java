@@ -43,11 +43,7 @@ public class NodeReaderImpl extends NamedEntityReaderImpl implements NodeReader 
 	public NffgReader getNffg() {
 		return this.nffgs;
 	}
-	
-	/*public String getName() {
-		return super.getName();
-	}*/
-	
+
 	public void addLink(LinkReader link){
 		if(link != null)
 		this.links.put(link.getName(), link);

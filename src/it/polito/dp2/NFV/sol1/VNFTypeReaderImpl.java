@@ -10,16 +10,7 @@ public class VNFTypeReaderImpl extends NamedEntityReaderImpl implements VNFTypeR
 	private int requiredstorage;	
 	private FunctionalType functionalType;
 	private NodeFunctionalType fType;
-	
-/*	
-	public VNFTypeReaderImpl(String name,int requiredmemory,int requiredstorage,FunctionalType ft) {
-		super(name);
-		this.requiredmemory = requiredmemory;
-		this.requiredstorage = requiredstorage;
-		this.ft = ft;
-	}
-*/
-	
+		
 	public VNFTypeReaderImpl(FType functionalType) {
 		super(functionalType.getFunctionaltypeId());
 		this.requiredmemory = functionalType.getRequiredMemory();
@@ -45,7 +36,5 @@ public class VNFTypeReaderImpl extends NamedEntityReaderImpl implements VNFTypeR
 	
 	public String getName() {
 		return super.getName();
-	}
-	
-		
+	}			
 }

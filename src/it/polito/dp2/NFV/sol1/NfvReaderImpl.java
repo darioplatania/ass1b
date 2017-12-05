@@ -13,16 +13,11 @@ import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 public class NfvReaderImpl implements NfvReader {
 	
 	private NetworkProvider np = null;
-	//private Set<HostReader>  hosts;
-	//private Set<NffgReader> nffgp;
-	//private Set<FType> vnfs;
-	private ConnectionPerformanceReader cpr;
 	
-	//MYLIST
-    //private List<NffgType> nffgTypes = null;
-	//private Set<HostReaderImpl> host_list;
-    //private Set<VNFTypeReaderImpl> vnf_list;
-    
+	/*
+	 * MyList
+	 * 
+	 */   
     private HashMap<String, NffgReaderImpl> nffgs = new HashMap<>();
     private HashMap<String, HostReaderImpl> host_list = new HashMap<>();
     private HashMap<String, VNFTypeReaderImpl> vnf_list = new HashMap<>();
@@ -67,7 +62,10 @@ public class NfvReaderImpl implements NfvReader {
 		
 	
 		
-		//Ciclo Host 	
+		/*
+		 * Create Hosts List
+		 *
+		 */	
 		for(HostType host : this.np.getIn().getHost()) {
 			HostReaderImpl hri = new HostReaderImpl(host);
 			host_list.put(host.getHostName(), hri);
@@ -76,7 +74,10 @@ public class NfvReaderImpl implements NfvReader {
 			throw new NfvReaderException("No Hosts are present");
 	
 		
-		//Ciclo FType
+		/*
+		 * Create VNFs List
+		 * 
+		 */
 		for(FType ft : this.np.getCatalog().getFunctionaltype()) {
 			VNFTypeReaderImpl myvnf = new VNFTypeReaderImpl(ft);
 			vnf_list.put(ft.getFunctionaltypeId(),myvnf);
@@ -85,6 +86,10 @@ public class NfvReaderImpl implements NfvReader {
 			throw new NfvReaderException("No vnfs are present");
 		
 		
+		/*
+		 *NF-FG/NODES/LINK 
+		 * 
+		 */
 		for(NffgType nffgType:nffgTypes){
 
 			
@@ -114,65 +119,57 @@ public class NfvReaderImpl implements NfvReader {
 					 * In tal caso vado ad aggiornare tale link.
 					 */
 					
-					for(int i=0;i<nodes.size();i++){
-						
+					for(int i=0;i<nodes.size();i++){						
 						NodeReaderImpl tmp = nodes.get(i);
 						if(!(tmp.getLinks().isEmpty())){
 							for(LinkReader lr:tmp.getLinks()){
 								if(lr.getDestinationNode().getName().equals(newNode.getName()))
 									if(lr.getDestinationNode().getFuncType()==null){
-										((LinkReaderImpl)nodes.get(i).getLink(lr.getName())).setDestinationNode(newNode);
-										
+										((LinkReaderImpl)nodes.get(i).getLink(lr.getName())).setDestinationNode(newNode);									
 									}
 							}
-						}
-						
-					}	
-					
-					
+						}						
+					}										
 				}
-				
-						
-				//Aggiungo tale nodo all'insieme
+				/*
+				 * Add this node into set of nodes
+				 */							
 				nodes.add(newNode);
 				
-				//Aggiungo tale nodo all'nffg
-				nffgImpl.addNode(newNode);
-				
+				/*
+				 * Add this node into NF-FG
+				 */	
+				nffgImpl.addNode(newNode);				
 			}
-			
-			//Aggiungo l'nffg all'insieme degli Nffg del ProviderNetwork(Root XML)
-			this.nffgs.put(nffgType.getNameNffg(),nffgImpl);
-			
+			/*
+			 * Add NF-FG into set of NetworkProvider NF-FG 
+			 */	
+			this.nffgs.put(nffgType.getNameNffg(),nffgImpl);			
 		}
 		
-		//HOST
+		/*
+		 * Host
+		 * 
+		 */	
 		for (Map.Entry<String, HostReaderImpl> host_r : host_list.entrySet()) {
 			for(Map.Entry<String, NffgReaderImpl> nffg : nffgs.entrySet()) {
 				for(NodeReader node : nffg.getValue().getNodes()) {
-					//System.out.println("NON ENTRO IF");
-					if(node.getHost().getName().equals(host_r.getValue().getName())) {	
-						//System.out.println("ENTRO IF");						
+					if(node.getHost().getName().equals(host_r.getValue().getName())) {					
 						host_r.getValue().addNode((NodeReaderImpl)node);		
 					}					
 				}
 			}
 		}
-		System.out.println("DOPO FUNZIONE: " + host_list.size());
-        
-        
-        //PERFORMANCE
-		for(Map.Entry<String, HostReaderImpl> i : host_list.entrySet()) {
-			for(PerformanceType pf : this.np.getIn().getPerformance()) {
-				//if((i.getValue().getName().equals(pf.getSourceHost()) || i.getValue().getName().equals(pf.getDestinationHost())) && (!pf.getSourceHost().equals(pf.getDestinationHost()))) {
-					ConnectionPerformanceReaderImpl cpri = new ConnectionPerformanceReaderImpl(pf);
-					String var = pf.getSourceHost() + "-" + pf.getDestinationHost();
-					cpr_list.put(var,cpri);
-				//}
-			}
-		}
-            
 
+		/*
+		 * Performance
+		 * 
+		 */			
+		for(PerformanceType pf : this.np.getIn().getPerformance()) {		
+			ConnectionPerformanceReaderImpl cpri = new ConnectionPerformanceReaderImpl(pf);
+			String var = pf.getSourceHost() + "-" + pf.getDestinationHost();
+			cpr_list.put(var,cpri);			
+		}		            
 	}
 
 	@Override
@@ -236,7 +233,10 @@ public class NfvReaderImpl implements NfvReader {
 	 
 	 /*METHOD*/
 	 
-	 /*SEARCH NODE METHOD*/
+	 /*
+	  *Search Node Method
+	  * 
+	  */	 
 	 private NodeReaderImpl cercaNodo(String node, NffgType nffg, NffgReaderImpl nffgri) {
 	        for (NodeType nodeType : nffg.getNode()) {
 	            if (nodeType.getNodeName().equals(node)) {
@@ -245,23 +245,26 @@ public class NfvReaderImpl implements NfvReader {
 	                return new NodeReaderImpl(node,hr,nffgri,vnf);
 	            }
 	        }
-
 	        return null;
 	    }
 	 
-	 /*SEARCH HOST METHOD*/
+	 /*
+	  *Search Host Method
+	  * 
+	  */	 
 	 private HostReaderImpl cercaHost(NodeType node) {
 		 for(Map.Entry<String, HostReaderImpl> host : host_list.entrySet()  ) {
 			 if(node.getHostName().equals(host.getValue().getName())) {
 				 return host.getValue();
 			 }
-		 }
-		 
-		 return null;
-		 
+		 }		 
+		 return null;		 
 	 }
 	 
-	 /*SEARCH VNF METHOD*/
+	 /*
+	  *Search VNF Method
+	  * 
+	  */	 
 	 private VNFTypeReaderImpl cercaVnf( NodeType node) {
 		 for(Map.Entry<String, VNFTypeReaderImpl> vnf : vnf_list.entrySet()) {			 		 
 			 if(vnf.getValue().getName().equals(node.getFunctionaltypeId())) {
@@ -269,6 +272,5 @@ public class NfvReaderImpl implements NfvReader {
 			 }
 		 }
 		 return null;
-	 }
-		 
+	 }		 
 }

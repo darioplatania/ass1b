@@ -125,26 +125,21 @@ File filename = new File (f);
 		
 		System.out.println("** START PRINT PERFORMANCE **");
 		// Get the list of Hosts
-		Set<HostReader> set = monitor.getHosts();
-		
-		//InType inn=new InType();				
+		Set<HostReader> set = monitor.getHosts();		
 	
 			for (HostReader sri: set) {
 			HostType ht = new HostType();		
 			ht.setHostName(sri.getName());
 		}
 		for (HostReader sri: set) {			
-			for (HostReader srj: set) {
-				//if (sri.getName()!=srj.getName()) {
+			for (HostReader srj: set) {			
 				PerformanceType pt=new PerformanceType();
 				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
 				pt.setAvgThroughput(cpr.getThroughput());
 				pt.setLatency(cpr.getLatency());
 				pt.setSourceHost(sri.getName());
 				pt.setDestinationHost(srj.getName());
-				np.getIn().getPerformance().add(pt);
-				//}
-			
+				np.getIn().getPerformance().add(pt);	
 			}			
 		}
 		System.out.println("** FINISH PRINTPERFORMANCE **");

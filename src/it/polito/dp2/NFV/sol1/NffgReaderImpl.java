@@ -38,7 +38,6 @@ public class NffgReaderImpl extends NamedEntityReaderImpl implements NffgReader 
 			for(Map.Entry<String, NodeReader> nr: this.nodes.entrySet()){
 				if(nr.getValue().getName()==arg0)
 					return  nr.getValue();
-				//return  (NodeReader) nr;
 			}
 			return null;
 		}

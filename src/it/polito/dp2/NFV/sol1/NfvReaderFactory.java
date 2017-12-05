@@ -26,11 +26,6 @@ public class NfvReaderFactory extends it.polito.dp2.NFV.NfvReaderFactory {
      * @throws it.polito.dp2.NFV.NfvReaderFactory
      */
     @Override
-    /*public NfvReader newNfvReader() throws NfvReaderException {
-    	NfvReader myNfvReader = new NfvReaderImpl();
-        return myNfvReader;
-    }*/
-    
     //Creates a new instance of a NfvReader implementation.
     public NfvReader newNfvReader() throws NfvReaderException {
 		return new NfvReaderImpl();
