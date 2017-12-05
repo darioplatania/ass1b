@@ -72,7 +72,6 @@ public class NfvReaderImpl implements NfvReader {
 			HostReaderImpl hri = new HostReaderImpl(host);
 			host_list.put(host.getHostName(), hri);
 		}
-		//DA CONTROLLARE PER VEDERE SE METTERLA O MENO
 		if(host_list.isEmpty())
 			throw new NfvReaderException("No Hosts are present");
 	
@@ -180,7 +179,7 @@ public class NfvReaderImpl implements NfvReader {
 	public ConnectionPerformanceReader getConnectionPerformance(HostReader arg0, HostReader arg1)  {
 		
 		String var = arg0.getName() + "-" + arg1.getName();	
-		return this.cpr_list.get(var);			
+		return this.cpr_list.get(var);
 			
 	}
 
