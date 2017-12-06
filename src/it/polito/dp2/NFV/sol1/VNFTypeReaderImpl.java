@@ -1,7 +1,8 @@
 package it.polito.dp2.NFV.sol1;
 
 
-import it.polito.dp2.NFV.*;
+import it.polito.dp2.NFV.FunctionalType;
+import it.polito.dp2.NFV.VNFTypeReader;
 import it.polito.dp2.NFV.sol1.jaxb.*;
 
 public class VNFTypeReaderImpl extends NamedEntityReaderImpl implements VNFTypeReader {

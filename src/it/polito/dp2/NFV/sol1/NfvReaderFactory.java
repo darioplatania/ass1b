@@ -1,6 +1,8 @@
 package it.polito.dp2.NFV.sol1;
 
-import it.polito.dp2.NFV.*;
+import it.polito.dp2.NFV.NfvReader;
+import it.polito.dp2.NFV.NfvReaderException;
+
 
 /*
  * 

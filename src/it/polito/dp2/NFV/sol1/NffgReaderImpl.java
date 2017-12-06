@@ -2,7 +2,8 @@ package it.polito.dp2.NFV.sol1;
 
 import java.util.*;
 
-import it.polito.dp2.NFV.*;
+import it.polito.dp2.NFV.NffgReader;
+import it.polito.dp2.NFV.NodeReader;
 
 
 public class NffgReaderImpl extends NamedEntityReaderImpl implements NffgReader {
