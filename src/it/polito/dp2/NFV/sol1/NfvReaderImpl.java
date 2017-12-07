@@ -106,12 +106,16 @@ public class NfvReaderImpl implements NfvReader {
 				if(!n.getLink().isEmpty()){
 					
 					for(LinkType l: n.getLink()){
-						NodeReaderImpl dstnode = cercaNodo(l.getDestinationNode(),nffgType,nffgImpl);
-						if(dstnode == null)
-							throw new NfvReaderException("Destination Node not found");
-						
-						LinkReaderImpl link_impl = new LinkReaderImpl(l.getLinkName(),newNode,dstnode,l.getMaxLatency(),l.getMinThroughput());
-						newNode.addLink(link_impl);
+						if(l.getSourceNode()!=l.getDestinationNode()) {
+							NodeReaderImpl dstnode = cercaNodo(l.getDestinationNode(),nffgType,nffgImpl);
+							if(dstnode == null)
+								throw new NfvReaderException("Destination Node not found");
+							
+							LinkReaderImpl link_impl = new LinkReaderImpl(l.getLinkName(),newNode,dstnode,l.getMaxLatency(),l.getMinThroughput());
+							newNode.addLink(link_impl);
+						}
+						else
+							throw new NfvReaderException("Link Incorrect!");
 					}
 					
 					/* Vado a vedere se ci sono link che puntano a un destNode col mio stesso Id, ossia

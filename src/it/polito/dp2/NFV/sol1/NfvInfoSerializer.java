@@ -69,7 +69,7 @@ public class NfvInfoSerializer {
 	}
 
 
-	public void printAll(String f) throws DatatypeConfigurationException {
+	public void printAll(String f) throws DatatypeConfigurationException, NfvReaderException {
 		printNffgs();
 		printHosts();
 		printPerformance();
@@ -183,7 +183,7 @@ File filename = new File (f);
 	}
 
 
-	private void printNffgs() throws DatatypeConfigurationException {
+	private void printNffgs() throws DatatypeConfigurationException, NfvReaderException {
 		System.out.println("** START PRINTNFFG **");
 		
 		// Get the list of NF-FGs
@@ -224,15 +224,18 @@ File filename = new File (f);
 				List<LinkType> linklist = node.getLink();
 								
 				for (LinkReader lr: linkSet) {
-						
-				// Create link,set link and add into listlink
-				LinkType link = new LinkType();
-				link.setLinkName(lr.getName());
-				link.setSourceNode(lr.getSourceNode().getName());
-				link.setDestinationNode(lr.getDestinationNode().getName());
-				link.setMinThroughput(lr.getThroughput());
-				link.setMaxLatency(lr.getLatency());
-				linklist.add(link);
+					if(lr.getSourceNode()!=lr.getDestinationNode()) {
+					// Create link,set link and add into listlink
+					LinkType link = new LinkType();
+					link.setLinkName(lr.getName());
+					link.setSourceNode(lr.getSourceNode().getName());
+					link.setDestinationNode(lr.getDestinationNode().getName());
+					link.setMinThroughput(lr.getThroughput());
+					link.setMaxLatency(lr.getLatency());
+					linklist.add(link);
+					}
+					else
+						throw new NfvReaderException("Link Incorrect!");
 				}
 			}			
 			//add into nffglist
