@@ -60,8 +60,6 @@ public class NfvReaderImpl implements NfvReader {
 		if(nffgTypes.isEmpty())
 			throw new NfvReaderException("No Nffgs are present");
 		
-	
-		
 		/*
 		 * Create Hosts List
 		 *
@@ -70,8 +68,6 @@ public class NfvReaderImpl implements NfvReader {
 			HostReaderImpl hri = new HostReaderImpl(host);
 			host_list.put(host.getHostName(), hri);
 		}
-		if(host_list.isEmpty())
-			throw new NfvReaderException("No Hosts are present");
 	
 		
 		/*
@@ -82,8 +78,6 @@ public class NfvReaderImpl implements NfvReader {
 			VNFTypeReaderImpl myvnf = new VNFTypeReaderImpl(ft);
 			vnf_list.put(ft.getFunctionaltypeId(),myvnf);
 		}
-		if(vnf_list.isEmpty())
-			throw new NfvReaderException("No vnfs are present");
 		
 		
 		/*
