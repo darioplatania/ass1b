@@ -77,7 +77,7 @@ public class NfvInfoSerializer {
 	
 
 	public void printAll(String f) throws DatatypeConfigurationException, NfvReaderException {
-			
+		
 		printNffgs();
 		printHosts();
 		printPerformance();
@@ -140,7 +140,8 @@ public void check_mem() throws NfvReaderException{
 			for(NodeReader node : host.getNodes()) {
 				mem+=node.getFuncType().getRequiredMemory();
 				if(mem > host.getAvailableMemory())
-					throw new NfvReaderException("Memory Error!");
+					//passo al successivo nodo
+					continue;
 			}						
 		}
 	}
@@ -153,7 +154,7 @@ public void check_mem() throws NfvReaderException{
 			for(NodeReader node : host.getNodes()) {
 				storage+=node.getFuncType().getRequiredStorage();
 				if(storage > host.getAvailableStorage())
-					throw new NfvReaderException("Storage Error!");
+					continue;
 			}
 		}
 	}
@@ -165,7 +166,7 @@ public void check_mem() throws NfvReaderException{
 		for(HostReader host : monitor.getHosts()) {			
 			vnf=host.getNodes().size();
 			if(vnf > host.getMaxVNFs())
-				throw new NfvReaderException("VNF Error!");			
+				continue;
 		}
 	}
 	
@@ -183,7 +184,7 @@ public void check_mem() throws NfvReaderException{
 			for(NodeReader node : nffg.getNodes()) {
 				for(LinkReader link : node.getLinks()) {
 					if(link.getLatency()<=cpr)
-						throw new NfvReaderException("Latency Error!");
+						continue;
 				}
 			}
 		}
@@ -203,7 +204,7 @@ public void check_throughput() throws NfvReaderException{
 			for(NodeReader node : nffg.getNodes()) {
 				for(LinkReader link : node.getLinks()) {
 					if(link.getThroughput()>=cpr)
-						throw new NfvReaderException("Throughput Error!");
+						continue;
 				}
 			}
 		}
