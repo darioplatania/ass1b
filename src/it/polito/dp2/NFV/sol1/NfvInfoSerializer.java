@@ -60,6 +60,13 @@ public class NfvInfoSerializer {
 		NfvInfoSerializer wf;
 		try {
 			wf = new NfvInfoSerializer();
+			/*Control Function*/
+			wf.check_mem();
+			wf.check_storage();
+			wf.check_vnf();
+			wf.check_latency();
+			wf.check_throughput();
+			/*Print All*/
 			wf.printAll(args[0]);
 		} catch (NfvReaderException e) {
 			System.err.println("Could not instantiate data generator.");
@@ -67,9 +74,10 @@ public class NfvInfoSerializer {
 			System.exit(1);
 		}
 	}
-
+	
 
 	public void printAll(String f) throws DatatypeConfigurationException, NfvReaderException {
+			
 		printNffgs();
 		printHosts();
 		printPerformance();
@@ -120,6 +128,91 @@ File filename = new File (f);
 		}
 }
 
+	/*
+	 * Control Method
+	 * 
+	 */
+public void check_mem() throws NfvReaderException{
+		
+		int mem = 0;
+		
+		for(HostReader host : monitor.getHosts()) {
+			for(NodeReader node : host.getNodes()) {
+				mem+=node.getFuncType().getRequiredMemory();
+				if(mem > host.getAvailableMemory())
+					throw new NfvReaderException("Memory Error!");
+			}						
+		}
+	}
+	
+	public void check_storage() throws NfvReaderException{
+		
+		int storage = 0;
+		
+		for(HostReader host : monitor.getHosts()) {
+			for(NodeReader node : host.getNodes()) {
+				storage+=node.getFuncType().getRequiredStorage();
+				if(storage > host.getAvailableStorage())
+					throw new NfvReaderException("Storage Error!");
+			}
+		}
+	}
+	
+	public void check_vnf() throws NfvReaderException{
+		
+		int vnf = 0;
+		
+		for(HostReader host : monitor.getHosts()) {			
+			vnf=host.getNodes().size();
+			if(vnf > host.getMaxVNFs())
+				throw new NfvReaderException("VNF Error!");			
+		}
+	}
+	
+	public void check_latency() throws NfvReaderException{
+		
+		int cpr = 0;
+		
+		for (HostReader sri: monitor.getHosts()) {			
+			for (HostReader srj: monitor.getHosts()) {			
+				cpr = monitor.getConnectionPerformance(sri, srj).getLatency();				
+			}	
+		}
+		
+		for(NffgReader nffg : monitor.getNffgs(null)) {
+			for(NodeReader node : nffg.getNodes()) {
+				for(LinkReader link : node.getLinks()) {
+					if(link.getLatency()<=cpr)
+						throw new NfvReaderException("Latency Error!");
+				}
+			}
+		}
+	}
+	
+public void check_throughput() throws NfvReaderException{
+		
+		float cpr = 0;
+		
+		for (HostReader sri: monitor.getHosts()) {			
+			for (HostReader srj: monitor.getHosts()) {			
+				cpr = monitor.getConnectionPerformance(sri, srj).getThroughput();				
+			}	
+		}
+		
+		for(NffgReader nffg : monitor.getNffgs(null)) {
+			for(NodeReader node : nffg.getNodes()) {
+				for(LinkReader link : node.getLinks()) {
+					if(link.getThroughput()>=cpr)
+						throw new NfvReaderException("Throughput Error!");
+				}
+			}
+		}
+	}
+	
+	/*
+	 * Function
+	 * 
+	 */
 
 	private void printPerformance() {
 		
