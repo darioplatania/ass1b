@@ -22,6 +22,7 @@ public class NfvReaderImpl implements NfvReader {
     private HashMap<String, HostReaderImpl> host_list = new HashMap<>();
     private HashMap<String, VNFTypeReaderImpl> vnf_list = new HashMap<>();
     private HashMap<String, ConnectionPerformanceReaderImpl> cpr_list = new HashMap<>();
+    private HashMap<String, NffgReaderImpl> nffg_cp = new HashMap<>();
 	
 	
 	private static final String XSD_FOLDER = "xsd/";
@@ -203,7 +204,15 @@ public class NfvReaderImpl implements NfvReader {
 
 	@Override
 	public Set<NffgReader> getNffgs(Calendar arg0) {
-		return new LinkedHashSet<NffgReader>(this.nffgs.values());
+		if(arg0 == null)
+			return new LinkedHashSet<NffgReader>(this.nffgs.values());
+		else {
+			for(Map.Entry<String, NffgReaderImpl> nffgr:this.nffgs.entrySet()) {
+				if(nffgr.getValue().getDeployTime().after(arg0))
+					this.nffg_cp.put(nffgr.getValue().getName(), (NffgReaderImpl) nffgr);
+			}
+			return new LinkedHashSet<NffgReader>(this.nffg_cp.values());
+		}			
 	}
 
 	@Override
