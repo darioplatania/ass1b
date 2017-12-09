@@ -11,13 +11,7 @@
         <xs:complexType>
             <xs:sequence>
                 <!-- nffg -->
-                <xs:element name="nffg" type="ni:nffgType" minOccurs="0" maxOccurs="unbounded">
-
-                    <xs:key name="link_id">
-                        <xs:selector xpath="ni:node/ni:link"/>
-                        <xs:field xpath="@link_name"/>
-                    </xs:key>
-                </xs:element>
+                <xs:element name="nffg" type="ni:nffgType" minOccurs="0" maxOccurs="unbounded"/>
 
                 <!-- in -->
                 <xs:element name="in" type="ni:inType"/>
@@ -39,6 +33,11 @@
         <xs:key name="node_id">
             <xs:selector xpath="ni:nffg/ni:node"/>
             <xs:field xpath="@node_name"/>
+        </xs:key>
+        
+        <xs:key name="link_id">
+            <xs:selector xpath="ni:node/ni:link"/>
+            <xs:field xpath="@link_name"/>
         </xs:key>
 
         <!-- unique of host_id -->
