@@ -60,12 +60,6 @@ public class NfvInfoSerializer {
 		NfvInfoSerializer wf;
 		try {
 			wf = new NfvInfoSerializer();
-			/*Control Function*/
-			wf.check_mem();
-			wf.check_storage();
-			wf.check_vnf();
-			wf.check_latency();
-			wf.check_throughput();
 			/*Print All*/
 			wf.printAll(args[0]);
 		} catch (NfvReaderException e) {
@@ -131,7 +125,7 @@ File filename = new File (f);
 	/*
 	 * Control Method
 	 * 
-	 */
+	 
 public void check_mem() throws NfvReaderException{
 		
 		int mem = 0;
@@ -209,6 +203,7 @@ public void check_throughput() throws NfvReaderException{
 			}
 		}
 	}
+*/
 	
 	/*
 	 * Function

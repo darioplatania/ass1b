@@ -69,6 +69,8 @@ public class NfvReaderImpl implements NfvReader {
 			HostReaderImpl hri = new HostReaderImpl(host);
 			host_list.put(host.getHostName(), hri);
 		}
+		if(host_list.isEmpty())
+			throw new NfvReaderException("Host List is empty!");
 	
 		
 		/*
@@ -79,6 +81,8 @@ public class NfvReaderImpl implements NfvReader {
 			VNFTypeReaderImpl myvnf = new VNFTypeReaderImpl(ft);
 			vnf_list.put(ft.getFunctionaltypeId(),myvnf);
 		}
+		if(vnf_list.isEmpty())
+			throw new NfvReaderException("VNF List is empty!");
 		
 		
 		/*
