@@ -77,7 +77,7 @@ public class NfvInfoSerializer {
 		printPerformance();
 		printCatalog();	
 		
-File filename = new File (f);
+		File filename = new File (f);
 		
 		JAXBContext jc = null;
 		try {
@@ -122,89 +122,6 @@ File filename = new File (f);
 		}
 }
 
-	/*
-	 * Control Method
-	 * 
-	 
-public void check_mem() throws NfvReaderException{
-		
-		int mem = 0;
-		
-		for(HostReader host : monitor.getHosts()) {
-			for(NodeReader node : host.getNodes()) {
-				mem+=node.getFuncType().getRequiredMemory();
-				if(mem > host.getAvailableMemory())
-					//passo al successivo nodo
-					continue;
-			}						
-		}
-	}
-	
-	public void check_storage() throws NfvReaderException{
-		
-		int storage = 0;
-		
-		for(HostReader host : monitor.getHosts()) {
-			for(NodeReader node : host.getNodes()) {
-				storage+=node.getFuncType().getRequiredStorage();
-				if(storage > host.getAvailableStorage())
-					continue;
-			}
-		}
-	}
-	
-	public void check_vnf() throws NfvReaderException{
-		
-		int vnf = 0;
-		
-		for(HostReader host : monitor.getHosts()) {			
-			vnf=host.getNodes().size();
-			if(vnf > host.getMaxVNFs())
-				continue;
-		}
-	}
-	
-	public void check_latency() throws NfvReaderException{
-		
-		int cpr = 0;
-		
-		for (HostReader sri: monitor.getHosts()) {			
-			for (HostReader srj: monitor.getHosts()) {			
-				cpr = monitor.getConnectionPerformance(sri, srj).getLatency();				
-			}	
-		}
-		
-		for(NffgReader nffg : monitor.getNffgs(null)) {
-			for(NodeReader node : nffg.getNodes()) {
-				for(LinkReader link : node.getLinks()) {
-					if(link.getLatency()<=cpr)
-						continue;
-				}
-			}
-		}
-	}
-	
-public void check_throughput() throws NfvReaderException{
-		
-		float cpr = 0;
-		
-		for (HostReader sri: monitor.getHosts()) {			
-			for (HostReader srj: monitor.getHosts()) {			
-				cpr = monitor.getConnectionPerformance(sri, srj).getThroughput();				
-			}	
-		}
-		
-		for(NffgReader nffg : monitor.getNffgs(null)) {
-			for(NodeReader node : nffg.getNodes()) {
-				for(LinkReader link : node.getLinks()) {
-					if(link.getThroughput()>=cpr)
-						continue;
-				}
-			}
-		}
-	}
-*/
-	
 	/*
 	 * Function
 	 * 

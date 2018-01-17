@@ -29,6 +29,10 @@ public class NfvReaderImpl implements NfvReader {
     private static final String XSD_FILE = "nfvInfo.xsd";
     private static final String PACKAGE = "it.polito.dp2.NFV.sol1.jaxb";
     
+    private int mem_compl_nodi;
+    private int storage_compl;
+    private int vnf_compl;
+    
     
 	public NfvReaderImpl() throws NfvReaderException {
 		
@@ -90,7 +94,6 @@ public class NfvReaderImpl implements NfvReader {
 		 * 
 		 */
 		for(NffgType nffgType:nffgTypes){
-
 			
 			NffgReaderImpl nffgImpl = new NffgReaderImpl(nffgType.getNameNffg(),nffgType.getDeployTime().toGregorianCalendar());
 			ArrayList<NodeReaderImpl> nodes = new ArrayList<NodeReaderImpl>();
@@ -134,6 +137,7 @@ public class NfvReaderImpl implements NfvReader {
 						}						
 					}										
 				}
+				
 				/*
 				 * Add this node into set of nodes
 				 */							
@@ -144,6 +148,106 @@ public class NfvReaderImpl implements NfvReader {
 				 */	
 				nffgImpl.addNode(newNode);				
 			}
+
+			/*
+			 * Control Method
+			 * 
+			 */
+			
+			//Check Memory
+			System.out.println("**********CHECK MEM **********");
+			System.out.println("NFFG NAME: " + nffgType.getNameNffg());
+			
+			for (Map.Entry<String, HostReaderImpl> host_r : host_list.entrySet()) {
+					
+			   mem_compl_nodi = 0;
+			   System.out.println("Memoria Iniziale: " + mem_compl_nodi);
+			   System.out.println("Numero di nodi: " + nodes.size());
+			   System.out.println("numero di Host: " + host_list.size());
+			   
+			   System.out.println("Controllo Host nome: " + host_r.getValue().getName());
+			   
+		       for(int i = 0; i< nodes.size();i++) {
+		         if(host_r.getValue().getName().equals(nodes.get(i).getHost().getName())) {
+		           System.out.println("Host: " + host_r.getValue().getName() + "---Nodo host: " + nodes.get(i).getHost().getName() + "---Nodo nome: " + nodes.get(i).getName());
+		           mem_compl_nodi+=nodes.get(i).getFuncType().getRequiredMemory();
+		           System.out.println("Memoria Host: " + host_r.getValue().getAvailableMemory());
+		           System.out.println("Memoria Complessiva Nodi: " + mem_compl_nodi);
+		           if(host_r.getValue().getAvailableMemory()<mem_compl_nodi) {
+		             System.out.println("DENTRO IF");
+		             throw new NfvReaderException("Eccesso MEMORY!!!!!");
+		           }
+		             
+		         }
+		         else {
+		           System.out.println("DENTRO ELSE");
+		           continue;
+		         }
+		       }
+		     }
+			
+			//Check Storage
+			System.out.println("**********CHECK STORAGE **********");
+			System.out.println("NFFG NAME: " + nffgType.getNameNffg());
+			
+			for (Map.Entry<String, HostReaderImpl> host_r : host_list.entrySet()) {
+				
+				   storage_compl = 0;
+				   System.out.println("Storage Iniziale: " + storage_compl);
+				   System.out.println("Numero di nodi: " + nodes.size());
+				   System.out.println("numero di Host: " + host_list.size());
+				   
+				   System.out.println("Controllo Host nome: " + host_r.getValue().getName());
+				   
+			       for(int i = 0; i< nodes.size();i++) {
+			         if(host_r.getValue().getName().equals(nodes.get(i).getHost().getName())) {
+			           System.out.println("Host: " + host_r.getValue().getName() + "---Nodo host: " + nodes.get(i).getHost().getName() + "---Nodo nome: " + nodes.get(i).getName());
+			           storage_compl+=nodes.get(i).getFuncType().getRequiredStorage();
+			           System.out.println("Storage Host: " + host_r.getValue().getAvailableStorage());
+			           System.out.println("Storage Complessivo: " + storage_compl);
+			           if(host_r.getValue().getAvailableStorage()<storage_compl) {
+			             System.out.println("DENTRO IF");
+			             throw new NfvReaderException("Eccesso STORAGE!!!!!");
+			           }
+			             
+			         }
+			         else {
+			           System.out.println("DENTRO ELSE");
+			           continue;
+			         }
+			       }
+			     }
+			
+			//Check VNF
+			System.out.println("**********CHECK VNF **********");
+			System.out.println("NFFG NAME: " + nffgType.getNameNffg());
+			
+			for (Map.Entry<String, HostReaderImpl> host_r : host_list.entrySet()) {
+				
+				vnf_compl = 0;
+				System.out.println("VNF Iniziale: " + vnf_compl);
+				System.out.println("Numero di nodi: " + nodes.size());
+				System.out.println("numero di Host: " + host_list.size());
+						
+				System.out.println("Controllo Host nome: " + host_r.getValue().getName());
+				 for(int i = 0; i< nodes.size();i++) {
+			         if(host_r.getValue().getName().equals(nodes.get(i).getHost().getName())) {
+			           System.out.println("Host: " + host_r.getValue().getName() + "---Nodo host: " + nodes.get(i).getHost().getName() + "---Nodo nome: " + nodes.get(i).getName());
+			           vnf_compl += 1;
+			           System.out.println("VNF Host: " + host_r.getValue().getMaxVNFs());
+			           System.out.println("VNF Complessivo: " + vnf_compl);
+						if(vnf_compl > host_r.getValue().getMaxVNFs()) {
+							System.out.println("DENTRO IF");
+			             	throw new NfvReaderException("Eccesso VNF!!!!!");
+						}     
+			         }
+			         else {
+			           System.out.println("DENTRO ELSE");
+			           continue;
+			         }
+			       }		
+			}
+
 			/*
 			 * Add NF-FG into set of NetworkProvider NF-FG 
 			 */	

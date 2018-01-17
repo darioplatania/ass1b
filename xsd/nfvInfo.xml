@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:networkProvider xmlns:p="http://www.example.org/nfvInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/nfvInfo nfvInfo.xsd ">
-  <p:nffg deploy_time="2001-12-31T12:00:00" name_nffg="nffg1">
-    <p:node functionaltypeId="f1" host_name="h1" node_name="n1"/>
-  </p:nffg>
   <p:in>
-    <p:host disk_storage="0" hostName="h1" memory="0" number_VNFs="0"/>
-    <p:performance avg_throughput="0.0" destinationHost="h1" latency="0.0" sourceHost="h1"/>
+    <p:host disk_storage="0" hostName="H0" memory="0" number_VNFs="0"/>
   </p:in>
   <p:catalog>
-    <p:functionaltype functionalTypeName="CACHE" functionaltypeId="f1" required_memory="0" required_storage="0"/>
+    <p:functionaltype functionalTypeName="CACHE" functionaltypeId="prova" required_memory="0" required_storage="0"/>
   </p:catalog>
 </p:networkProvider>
