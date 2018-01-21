@@ -113,6 +113,11 @@ public class NfvReaderImpl implements NfvReader {
 							if(dstnode == null)
 								throw new NfvReaderException("Destination Node not found");
 							
+							if(l.getMinThroughput() == null)
+								l.setMinThroughput(new Float (0.0));
+							if(l.getMaxLatency() == null)
+								l.setMaxLatency(0);
+							
 							LinkReaderImpl link_impl = new LinkReaderImpl(l.getLinkName(),newNode,dstnode,l.getMaxLatency(),l.getMinThroughput());
 							newNode.addLink(link_impl);
 						}
